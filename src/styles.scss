@@ -1,7 +1,17 @@
 /* Global styles */
 
+@import "colors";
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+div.wrapper {
+    overflow-x: hidden;
+}
+
+.margin-auto {
+    margin: 0 auto;
 }

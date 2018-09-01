@@ -1,0 +1,97 @@
+@import "../../../styles";
+
+div.wrapper {
+    background-image: url("../../../assets/pages/landing/background.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    color: $white;
+    font-family: 'Sawarabi Mincho', sans-serif;
+    font-size: 18px;
+    min-height: 100vh;
+    overflow: hidden;
+    text-align: center;
+    width: 100vw;
+    @media only screen and (max-width: 1600px), screen and (max-height: 900px) {
+        font-size: 16px;
+    }
+    @media only screen and (max-width: 1280px), screen and (max-height: 720px) {
+        font-size: 14px;
+    }
+    @media only screen and (max-width: 1024px), screen and (max-height: 576px) {
+        font-size: 12px;
+    }
+    div.container-fluid {
+        div.row {
+            header {
+                padding: 30px 10px;
+                @media only screen and (max-width: 1280px), screen and (max-height: 720px) {
+                    padding: 20px 10px;
+                }
+                @media only screen and (max-width: 1024px), screen and (max-height: 576px) {
+                    padding: 10px;
+                }
+            }
+        }
+        main {
+            article.quote {
+                font-family: 'Marck Script';
+                padding: 20px 10px 30px;
+                q {
+                    display: block;
+                    font-size: 32px;
+                    @media only screen and (max-width: 1600px), screen and (max-height: 900px) {
+                        font-size: 28px;
+                    }
+                    @media only screen and (max-width: 1280px), screen and (max-height: 720px) {
+                        font-size: 24px;
+                    }
+                    @media only screen and (max-width: 1024px), screen and (max-height: 576px) {
+                        font-size: 20px;
+                    }
+                    @media only screen and (max-width: 768px), screen and (max-height: 432px) {
+                        font-size: 18px;
+                    }
+                }
+                span.author {
+                    font-size: 24px;
+                    @media only screen and (max-width: 1600px), screen and (max-height: 900px) {
+                        font-size: 20px;
+                    }
+                    @media only screen and (max-width: 1280px), screen and (max-height: 720px) {
+                        font-size: 16px;
+                    }
+                    @media only screen and (max-width: 1024px), screen and (max-height: 576px) {
+                        font-size: 12px;
+                    }
+                }
+            }
+            nav {
+                section {
+                    padding: 20px;
+                    @media only screen and (max-width: 1280px), screen and (max-height: 720px) {
+                        padding: 10px;
+                    }
+                    @media only screen and (max-width: 1024px), screen and (max-height: 576px) {
+                        padding: 5px;
+                    }
+                    img {
+                        max-width: 90%;
+                        @media only screen and (max-width: 1600px), screen and (max-height: 900px) {
+                            transform: scale(0.9);
+                        }
+                        @media only screen and (max-width: 1280px), screen and (max-height: 720px) {
+                            transform: scale(0.8);
+                        }
+                    }
+                }
+            }
+        }
+        footer {
+            bottom: 10px;
+            font-size: 12px;
+            opacity: 0.75;
+            position: absolute;
+        }
+    }
+}
