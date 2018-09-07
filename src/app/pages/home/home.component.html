@@ -1,0 +1,75 @@
+<div class="wrapper fullscreen">
+  <div class="container-fluid">
+    <div class="row">
+      <header class="col-sm-8 col-md-6 col-lg-5 margin-auto standard-header">
+        <a href="/home">
+          <logo>
+          </logo>
+        </a>
+      </header>
+      <main class="col-sm-12">
+        <article class="quote">
+          <q>
+            I don’t believe in psychology. I believe in good moves.
+          </q>
+          <span class="author">
+            ~ Bobby Fischer
+          </span>
+        </article>
+        <div class="main">
+          <div *ngIf="currentSection === 'home'">
+            <nav class="col-sm-12">
+              <section>
+                Just keep learning!<br>
+                <img src="../../../assets/pages/home/improve-your-skills.png" alt="Improve your skills" class="clickable wolf-bane-text size-l" (click)="changeSection('signIn')">
+              </section>
+              <section>
+                Don't have account yet?<br>
+                <a href="/register">
+                  <img src="../../../assets/pages/home/register-for-free.png" alt="Register for free" class="wolf-bane-text size-l clickable">
+                </a>
+              </section>
+            </nav>
+          </div>
+          <div *ngIf="currentSection === 'signIn'">
+            <form (submit)="signIn()">
+              <img src="../../../assets/pages/home/username.png" alt="Username" class="sign-in-method username active wolf-bane-text size-s clickable" (click)="updateSignInMethod('username')"><img src="../../../assets/pages/home/email.png" alt="Email" class="sign-in-method email inactive wolf-bane-text size-s clickable" (click)="updateSignInMethod('email')"><br>
+              <input type="text" name="login" placeholder="login" [attr.maxlength]="signInMethod === 'username' ? maximumUsernameLength : maximumEmailLength" [(ngModel)]="userCredentials.login" class="standard-input"><br>
+              <input type="password" name="password" placeholder="password" [attr.maxlength]="maximumPasswordLength" [(ngModel)]="userCredentials.password" class="standard-input"><br>
+              <button type="submit" [disabled]="!validateCredentials()" class="standard-button">
+                <img src="../../../assets/pages/home/sign-in.png" alt="Sign in" class="wolf-bane-text size-l clickable">
+              </button><br>
+              <img src="../../../assets/shared/back.png" alt="Back" class="back wolf-bane-text size-xs clickable" (click)="changeSection('home')">
+            </form>
+          </div>
+          <div *ngIf="currentSection === 'loggedIn'">
+            <article class="player-profile">
+              <section>
+                Read about best moves and strategies!<br>
+                <a href="/guide">
+                  <img src="../../../assets/pages/home/check-strategy-guide.png" alt="Check strategy guide" class="wolf-bane-text size-m">
+                </a>
+              </section>
+              <section>
+                Can you pass most difficult challenges?<br>
+                <a href="/game">
+                  <img src="../../../assets/pages/home/begin-training-session.png" alt="Begin training session" class="wolf-bane-text size-l">
+                </a>
+              </section>
+              <section>
+                Take part in exciting discourses!<br>
+                <a href="/forum">
+                  <img src="../../../assets/pages/home/visit-discussion-forum.png" alt="Visit discussion forum" class="wolf-bane-text size-m">
+                </a>
+              </section>
+            </article>
+          </div>
+        </div>
+      </main>
+      <footer class="col-sm-12 margin-auto standard-footer">
+        Copyright © Chess Training Game, 2018<br>
+        All right reserved
+      </footer>
+    </div>
+  </div>	
+</div>
