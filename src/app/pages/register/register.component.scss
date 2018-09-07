@@ -1,0 +1,29 @@
+@import "../../../styles";
+
+div.wrapper {
+    background-image: url("../../../assets/pages/register/register-page-background.jpg");
+    main {
+        article {
+            padding: 20px;
+                section {
+                margin-top: 10px;
+                &.error {
+                    margin-top: 30px;
+                }
+                img.question-mark {
+                    display: inline-block;
+                    margin-bottom: -10px;
+                    transform: scale(0.8);
+                }
+                input.standard-input {
+                    border-radius: 20px;
+                    padding: 5px 10px;
+                    width: 200px;
+                }
+                input[type="checkbox"] {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}

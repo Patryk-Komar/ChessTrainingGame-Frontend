@@ -1,0 +1,84 @@
+<div class="wrapper fullscreen">
+  <div class="container-fluid">
+    <div class="row">
+      <header class="col-sm-8 col-md-6 col-lg-5 margin-auto standard-header">
+        <a href="/home">
+          <logo>
+          </logo>
+        </a>
+      </header>
+      <main class="col-sm-12">
+        <article class="quote">
+          <q>
+            Every chess master was once a beginner.
+          </q>
+          <span class="author">
+            ~ Irving Chernev
+          </span>
+        </article>
+        <article class="main col-sm-12 col-md-8 col-lg-6 xl-4 margin-auto">
+          <div *ngIf="currentSection === 'pre-rules'">
+            <img src="../../../assets/pages/register/registration-pre-rules.png" alt="Registration pre-rules" class="wolf-bane-text size-l">
+            <section>
+              Hello world - pre-rules
+            </section>
+            <img src="../../../assets/pages/register/start.png" alt="Start" class="wolf-bane-text size-s clickable" (click)="changeSection('credentials')">
+          </div>
+          <div *ngIf="currentSection === 'credentials'">
+            <img src="../../../assets/pages/register/credentials.png" alt="Credentials" class="wolf-bane-text size-l">
+            <section>
+              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="text" placeholder="username" [attr.maxlength]="maximumUsernameLength" [(ngModel)]="userRegister.username" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><br>
+              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="email" placeholder="email address" [attr.maxlength]="maximumEmailLength" [(ngModel)]="userRegister.email" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><br>
+              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="password" placeholder="password" [attr.maxlength]="maximumPasswordLength" [(ngModel)]="userRegister.password" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><br>
+              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="password" placeholder="repeat password" [attr.maxlength]="maximumPasswordLength" [(ngModel)]="userRegister.passwordRepeat" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable">
+            </section>
+            <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('pre-rules')">
+            <img src="../../../assets/shared/next.png" alt="Next" class="wolf-bane-text size-s clickable" (click)="validateCredentials()">
+          </div>
+          <div *ngIf="currentSection === 'personal-details'">
+            <img src="../../../assets/pages/register/personal-details.png" alt="Personal details" class="wolf-bane-text size-l">
+            <section>
+              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="text" placeholder="first name" [attr.maxlength]="maximumFirstNameLength" [(ngModel)]="userRegister.firstName" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><br>
+              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="email" placeholder="last name" [attr.maxlength]="maximumLastNameLength" [(ngModel)]="userRegister.lastName" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><br>
+            </section>
+            <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('credentials')">
+            <img src="../../../assets/shared/next.png" alt="Next" class="wolf-bane-text size-s clickable" (click)="validatePersonalDetails()">
+          </div>
+          <div *ngIf="currentSection === 'regulations'">
+            <img src="../../../assets/pages/register/regulations.png" alt="Regulations" class="wolf-bane-text size-l">
+            <section>
+              By finishing registration process you confirm<br>
+              acceptation for all Chess Training Game regulations.
+            </section>
+            <section>
+              <label>
+                <input [(ngModel)]="userRegister.regulationsAcceptation" type="checkbox">I agree to the website <a href="/regulations">Terms of Service</a> and <a href="/regulations">Privacy Policy</a>.
+              </label>
+            </section>
+            <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('personal-details')">
+            <img src="../../../assets/pages/register/finish.png" alt="Finish" class="wolf-bane-text size-s clickable" (click)="signUp()">
+          </div>
+          <div *ngIf="currentSection === 'registered'">
+            <img src="../../../assets/pages/register/account-created.png" alt="Account created" class="wolf-bane-text size-l" (click)="changeSection('pre-rules')">
+            <section>
+              Thank you for registration in Chess Training Game!<br>Please check your Inbox and follow the instructions.
+            </section>
+            <a href="/home">
+              <img src="../../../assets/shared/home-page.png" alt="Home page" class="wolf-bane-text size-s clickable">
+            </a>
+          </div>
+          <div *ngIf="currentSection === 'error'">
+            <img src="../../../assets/shared/houston-we-have-a-problem.png" alt="Houston, we have a problem" class="wolf-bane-text size-l">
+            <section class="error">
+              {{registerError}}
+            </section>
+          </div>
+        </article>
+      </main>
+      <footer class="col-sm-12 margin-auto standard-footer">
+        Copyright © Chess Training Game, 2018<br>
+        All right reserved
+      </footer>
+    </div>
+  </div>	
+</div>
