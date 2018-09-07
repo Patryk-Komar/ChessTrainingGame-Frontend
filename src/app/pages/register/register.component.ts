@@ -23,7 +23,7 @@ export class RegisterPage implements OnInit {
   private registerError: string;
 
   constructor(private userService: UserService) {
-    this.currentSection = "registered";
+    this.currentSection = "pre-rules";
     this.userRegister = new UserRegister();
     this.registerError = "";
     this.validateCredentials = this.validateCredentials.bind(this);
