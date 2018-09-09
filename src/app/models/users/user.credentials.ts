@@ -24,7 +24,7 @@ export class UserCredentials {
     }
 
     public prepareSignInRequestURL(method: string): string {
-        return `/users/signIn/${method}/${this.login}/${this.password}`;
+        return `/api/users/signIn/${method}/${this.login}/${this.password}`;
     }
 
 }

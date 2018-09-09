@@ -57,15 +57,15 @@ export class UserRegister {
     }
 
     public prepareUsernameAvailabilityRequestURL(): string {
-        return `/users/signUp/username/${this.username}`;
+        return `/api/users/signUp/username/${this.username}`;
     }
 
     public prepareEmailAvailabilityRequestURL(): string {
-        return `/users/signUp/email/${this.email}`;
+        return `/api/users/signUp/email/${this.email}`;
     }
 
     static prepareSignUpRequestURL(): string {
-        return `/users/signUp`;
+        return `/api/users/signUp`;
     }
 
 }

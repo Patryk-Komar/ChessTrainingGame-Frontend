@@ -1,0 +1,56 @@
+@import "../../../styles";
+
+div.wrapper {
+    background-image: url("../../../assets/pages/game/game-page-background.jpg");
+    main {
+        border-radius: 30px;
+        div.main {
+            height: 100%;
+            padding-top: 20px;
+            article.quote {
+                q {
+                    margin-bottom: 50px;
+                }
+            }
+            div.mode-selection {
+                justify-content: center;
+                article {
+                    img {
+                        margin: 30px;
+                    }
+                }
+            }
+            div.chessboard {
+                border: 3px solid #4da9ff;
+                display: inline-block;
+                div.chessboard-field {
+                    float: left;
+                    height: 65px;
+                    transition: all 0.2s ease-in-out;
+                    width: 65px;
+                    &.white {
+                        background-color: $white;
+                        &.clicked {
+                            background-color: #66b3ff;
+                        }
+                        &.highlighted {
+                            filter: brightness(90%);
+                        }
+                    }
+                    &.black {
+                        background-color: #b3d9ff;
+                        &.clicked {
+                            background-color: #66b3ff;
+                        }
+                        &.highlighted {
+                            filter: brightness(85%);
+                        }
+                    }
+                    img.chess-piece {
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

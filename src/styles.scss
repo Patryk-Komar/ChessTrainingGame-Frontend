@@ -41,6 +41,23 @@ div.wrapper {
     margin: 0 auto;
 }
 
+.clear-both {
+    clear: both;
+}
+
+.flex-row {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.flex-column {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
 img.wolf-bane-text {
     max-width: 90vh;
     &.clickable {

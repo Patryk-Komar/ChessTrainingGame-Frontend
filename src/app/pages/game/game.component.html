@@ -1,0 +1,75 @@
+<div class="wrapper fullscreen">
+  <div class="container-fluid">
+    <div class="row">
+      <header class="col-sm-8 col-md-6 col-lg-4 margin-auto standard-header">
+        <a href="/home">
+          <logo>
+          </logo>
+        </a>
+      </header>
+    </div>
+    <div class="row">
+      <aside class="col-sm-10 col-md-6 col-lg-2 margin-auto">
+        
+      </aside>
+      <main class="col-sm-12 col-md-8 col-lg-6 margin-auto">
+        <div class="main">
+          <div *ngIf="currentSection === 'quotation'">
+            <article class="quote">
+              <q>
+                {{quotation.content}}
+              </q>
+              <span class="author">
+                ~ {{quotation.author}}
+              </span>
+            </article>
+          </div>
+          <div *ngIf="currentSection === 'mode-selection'" class="mode-selection flex-column">
+            <article class="flex-row">
+              <img src="../../../assets/pages/game/checkmates-one-move.png" alt="Checkmates by 1 move" class="wolf-bane-text size-m clickable" (click)="startOneMoveCheckmated()">
+              <img src="../../../assets/pages/game/checkmates-two-moves.png" alt="Checkmates by 2 moves" class="wolf-bane-text size-m clickable" (click)="startTwoMovesCheckmates()">
+              <img src="../../../assets/pages/game/checkmates-three-moves.png" alt="Checkmates by 3 moves" class="wolf-bane-text size-m clickable" (click)="startThreeMovesCheckmates()">
+            </article>
+            <article class="flex-row">
+              <img src="../../../assets/pages/game/stalemates.png" alt="Stalemates" class="wolf-bane-text size-m clickable" (click)="startStalemates()">
+              <img src="../../../assets/pages/game/double-attacks.png" alt="Double attacks" class="wolf-bane-text size-m clickable" (click)="startDoubleAttacks()">
+            </article>
+          </div>
+          <div *ngIf="currentSection === 'game'">
+            <div class="chessboard margin-auto">
+              <ng-container *ngFor="let piece of chessboard.fields; let i = index;">
+                <ng-container *ngIf="((i / 8) - (i % 8) / 8) % 2 === 0">
+                  <div id="field-{{i}}" *ngIf="i % 2 === 0" class="chessboard-field white clickable" (click)="chessboardFieldClick(i)">
+                    <img *ngIf="piece !== null" src="{{piece.prepareAssetsURL()}}" alt="{{piece.prepareAlternativeDescription}}" class="chess-piece">
+                  </div>
+                  <div id="field-{{i}}" *ngIf="i % 2 === 1" class="chessboard-field black clickable" (click)="chessboardFieldClick(i)">
+                    <img *ngIf="piece !== null" src="{{piece.prepareAssetsURL()}}" alt="{{piece.prepareAlternativeDescription}}" class="chess-piece">
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="((i / 8) - (i % 8) / 8) % 2 === 1">
+                  <div id="field-{{i}}" *ngIf="i % 2 === 0" class="chessboard-field black clickable" (click)="chessboardFieldClick(i)">
+                    <img *ngIf="piece !== null" src="{{piece.prepareAssetsURL()}}" alt="{{piece.prepareAlternativeDescription}}" class="chess-piece">
+                  </div>
+                  <div id="field-{{i}}" *ngIf="i % 2 === 1" class="chessboard-field white clickable" (click)="chessboardFieldClick(i)">
+                    <img *ngIf="piece !== null" src="{{piece.prepareAssetsURL()}}" alt="{{piece.prepareAlternativeDescription}}" class="chess-piece">
+                  </div>
+                </ng-container>
+                <div *ngIf="i % 8 === 7" class="clear-both"></div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="currentSection === 'error'">
+            
+          </div>
+        </div>
+      </main>
+      <aside class="col-sm-10 col-md-6 col-lg-2 margin-auto">
+        {{error}}
+      </aside>
+      <footer class="col-sm-12 margin-auto standard-footer">
+        Copyright © Chess Training Game, 2018<br>
+        All right reserved
+      </footer>
+    </div>
+  </div>	
+</div>

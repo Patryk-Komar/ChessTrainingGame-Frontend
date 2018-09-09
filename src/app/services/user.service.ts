@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import axios from "axios";
 
-import { UserCredentials } from '../models/user.credentials';
-import { UserRegister } from '../models/user.register';
+import { UserCredentials } from '../models/users/user.credentials';
+import { UserRegister } from '../models/users/user.register';
 
 @Injectable({
   providedIn: 'root'

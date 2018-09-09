@@ -11,6 +11,7 @@ import { LandingPage } from './pages/landing/landing.component';
 import { HomePage } from './pages/home/home.component';
 import { UserService } from './services/user.service';
 import { RegisterPage } from './pages/register/register.component';
+import { GamePage } from './pages/game/game.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RegisterPage } from './pages/register/register.component';
     Logo,
     LandingPage,
     HomePage,
-    RegisterPage
+    RegisterPage,
+    GamePage
   ],
   imports: [
     BrowserModule,

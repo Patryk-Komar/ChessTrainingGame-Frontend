@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
-import { UserRegister } from '../../models/user.register';
+import { UserRegister } from '../../models/users/user.register';
 import { UserService } from '../../services/user.service';
 
 @Component({
