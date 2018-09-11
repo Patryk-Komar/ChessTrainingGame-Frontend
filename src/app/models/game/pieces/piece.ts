@@ -3,11 +3,9 @@ import Chessboard from "../chessboard";
 abstract class Piece {
 
     protected color: string;
-    protected fieldNumber: number;
 
-    constructor(color: string, fieldNumber: number) {
+    constructor(color: string) {
         this.color = color === "white" || color === "black" ? color : "white";
-        this.fieldNumber = Number.isInteger(fieldNumber) && fieldNumber >= 0 && fieldNumber < 64 ? fieldNumber : 0;
     }
 
     public getColor(): string {
