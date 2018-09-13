@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
-import Chessboard from '../../models/game/chessboard';
 import { Quotation } from "../../utils/quotations";
 import QuotationManager from "../../managers/quotation.manager";
 import { GameService } from '../../services/game.service';
+import Chessboard from '../../models/game/chessboard';
+import Move from '../../models/game/move';
 import OneMoveCheckmate from '../../models/game/game-modes/one.move.checkmate';
 import TwoMovesCheckmate from '../../models/game/game-modes/two.moves.checkmate';
 import ThreeMovesCheckmate from '../../models/game/game-modes/three.moves.checkmate';
 import Stalemate from '../../models/game/game-modes/stalemate';
 import DoubleAttack from '../../models/game/game-modes/double.attack';
-import Move from '../../models/game/move';
 import gameModesMapping from "../../config/game.modes.mapping";
-import { UserCredentials } from '../../models/users/user.credentials';
+import piecesMapping from '../../config/pieces.mapping';
 
 @Component({
   selector: 'game-page',
@@ -23,18 +23,18 @@ export class GamePage implements OnInit {
 
   private currentSection: string;
 
-  private chessboard: Chessboard;
-
   private quotation: Quotation;
 
   private error: string;
 
-  private selectedGameMode: string;
-  private rankedGameMode: boolean;
-
+  private chessboard: Chessboard;
   private blockade: boolean;
   private firstClick: boolean;
   private clickedField: number;
+
+  private selectedGameMode: string;
+  private rankedGameMode: boolean;
+  private gameStarted: boolean;
 
   private oneMoveCheckmate: OneMoveCheckmate;
   private twoMovesCheckmate: TwoMovesCheckmate;
@@ -47,8 +47,9 @@ export class GamePage implements OnInit {
   
   constructor(private gameService: GameService) {
     this.currentSection = "mode-selection";
+    this.gameStarted = false;
     this.startRankedGame = this.startRankedGame.bind(this);
-    this.startNonRankedGame = this.startNonRankedGame.bind(this);
+    this.startTrainingGame = this.startTrainingGame.bind(this);
   }
 
   ngOnInit() {
@@ -79,6 +80,11 @@ export class GamePage implements OnInit {
           this.activateBlockade();
         } else {
           const possibleMoves = chessboard.fields[clickedField].showPossibleMoves(clickedField, chessboard.fields);
+          let pieceClone;
+          if (chessboard.fields[fieldNumber] !== null) {
+            const CloneClass = piecesMapping[chessboard.fields[fieldNumber].getType()];
+            pieceClone = new CloneClass(chessboard.fields[fieldNumber].getColor());
+          }
           if (possibleMoves.includes(fieldNumber)) {
             chessboard.fields[fieldNumber] = chessboard.fields[clickedField];
             chessboard.fields[clickedField] = null;
@@ -98,14 +104,22 @@ export class GamePage implements OnInit {
                 } else {
                   this.activateBlockade();
                   setTimeout(() => {
-                    this.startNonRankedGame();
+                    this.startTrainingGame();
                   }, 500);
                 }
+              } else {
+                const enemyMove = this[selectedGameMode].getEnemyMove();
+                const enemyMoveFrom = enemyMove.getFrom();
+                const enemyMoveTo = enemyMove.getTo();
+                setTimeout(() => {
+                  chessboard.fields[enemyMoveTo] = chessboard.fields[enemyMoveFrom];
+                  chessboard.fields[enemyMoveFrom] = null;
+                }, 250);
               }
             } else {
               setTimeout(() => {
                 chessboard.fields[clickedField] = chessboard.fields[fieldNumber];
-                chessboard.fields[fieldNumber] = null;
+                chessboard.fields[fieldNumber] = pieceClone ? pieceClone : null;
               }, 250);
             }
             this.activateBlockade();
@@ -138,6 +152,7 @@ export class GamePage implements OnInit {
   startRankedGame(selectedGameMode: string): void {
     this.selectedGameMode = selectedGameMode;
     this.rankedGameMode = true;
+    this.gameStarted = true;
     this.blockade = false;
     this.firstClick = false;
     setTimeout(() => {
@@ -156,15 +171,30 @@ export class GamePage implements OnInit {
           this.chessboard = this[selectedGameMode].getChessboard();
           this.puzzleStarted = new Date();
         } else {
-          this.error = "No nie za bałdzo.";
+          const {
+            message
+          } = response;
+          this.error = message ? message : "Unknown error occurred. Please try again."
           this.showError("puzzle-selection");
         }
       });
     }, 500);
   }
 
-  startNonRankedGame(): void {
+  startTrainingGame(): void {
+    if (!this.gameStarted) {
+      $("aside.aside-left").fadeOut(500);
+      $("aside.aside-right").fadeOut(500);
+      setTimeout(() => {
+        $("main").removeClass("col-lg-4").addClass("col-lg-6");
+        $("aside.aside-left").removeClass("col-lg-4").addClass("col-lg-3");
+        $("aside.aside-right").removeClass("col-lg-4").addClass("col-lg-3");
+        $("aside.aside-left").fadeIn(1000);
+        $("aside.aside-right").fadeIn(1000);
+      }, 1000);
+    }
     this.rankedGameMode = false;
+    this.gameStarted = true;
     this.blockade = false;
     this.firstClick = false;
     setTimeout(() => {
@@ -184,7 +214,12 @@ export class GamePage implements OnInit {
           } = result;
           this.selectedGameMode = gameModeName;
           const GameModeClass = gameModesMapping[gameModeName];
-          this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions);
+          if (gameModeName !== "twoMovesCheckmate" && gameModeName !== "threeMovesCheckmate") {
+            this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions);
+          } else {
+            const enemyMoves = result["enemy-moves"];
+            this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions, enemyMoves)
+          }
           setTimeout(() => {
             this.chessboard = this[gameModeName].getChessboard();
           }, 500);

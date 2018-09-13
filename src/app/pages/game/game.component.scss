@@ -3,7 +3,6 @@
 div.wrapper {
     background-image: url("../../../assets/pages/game/game-page-background.jpg");
     main {
-        border-radius: 30px;
         div.main {
             align-items: center;
             display: flex;
@@ -18,9 +17,31 @@ div.wrapper {
             }
             div.puzzle-selection, div.mode-selection {
                 justify-content: center;
+                header.mode-selection-header {
+                    margin-top: 40px;
+                    margin-bottom: 20px;
+                }
                 article {
-                    img {
-                        margin: 30px;
+                    &.back-button {
+                        margin-top: 30px;
+                    }
+                    span.hover-all {
+                        img {
+                            &.piece {
+                                filter: brightness(150%);
+                                margin: -10px 20px 0;
+                                max-height: 200px;
+                                transition: all 0.25s ease-in-out;
+                            }
+                        }
+                        &:hover {
+                            img {
+                                opacity: 1;
+                                &.piece {
+                                    filter: brightness(400%);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -56,5 +77,9 @@ div.wrapper {
                 }
             }
         }
+    }
+    aside {
+        margin: 0;
+        text-align: center;
     }
 }
