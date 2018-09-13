@@ -150,6 +150,17 @@ export class GamePage implements OnInit {
   }
 
   startRankedGame(selectedGameMode: string): void {
+    if (!this.gameStarted) {
+      $("aside.aside-left").fadeOut(500);
+      $("aside.aside-right").fadeOut(500);
+      setTimeout(() => {
+        $("main").removeClass("col-lg-4").addClass("col-lg-6");
+        $("aside.aside-left").removeClass("col-lg-4").addClass("col-lg-3");
+        $("aside.aside-right").removeClass("col-lg-4").addClass("col-lg-3");
+        $("aside.aside-left").fadeIn(1000);
+        $("aside.aside-right").fadeIn(1000);
+      }, 1000);
+    }
     this.selectedGameMode = selectedGameMode;
     this.rankedGameMode = true;
     this.gameStarted = true;
