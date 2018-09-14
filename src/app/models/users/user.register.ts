@@ -18,8 +18,20 @@ export class UserRegister {
         this.regulationsAcceptation = regulationsAcceptation || false;
     }
 
+    public getUsername(): string {
+        return this.username;
+    }
+
+    public getEmail(): string {
+        return this.email;
+    }
+
+    public getPassword(): string {
+        return this.password;
+    }
+
     public validateUsername(): boolean {
-        const usernameRegex = new RegExp(/^[A-Za-z][a-zA-Z0-9.-_]{2,15}$/);
+        const usernameRegex = new RegExp(/^[A-Za-z][-a-zA-Z0-9._]{2,15}$/);
         return usernameRegex.test(this.username);
     }
 

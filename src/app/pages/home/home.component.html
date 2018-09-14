@@ -34,7 +34,7 @@
           <div *ngIf="currentSection === 'signIn'">
             <form (submit)="signIn()">
               <img src="../../../assets/pages/home/username.png" alt="Username" class="sign-in-method username active wolf-bane-text size-s clickable" (click)="updateSignInMethod('username')"><img src="../../../assets/pages/home/email.png" alt="Email" class="sign-in-method email inactive wolf-bane-text size-s clickable" (click)="updateSignInMethod('email')"><br>
-              <input type="text" name="login" placeholder="login" [attr.maxlength]="signInMethod === 'username' ? maximumUsernameLength : maximumEmailLength" [(ngModel)]="userCredentials.login" class="standard-input"><br>
+              <input type="text" name="login" [attr.placeholder]="signInMethod === 'username' ? 'username' : 'email'" [attr.maxlength]="signInMethod === 'username' ? maximumUsernameLength : maximumEmailLength" [(ngModel)]="userCredentials.login" class="standard-input"><br>
               <input type="password" name="password" placeholder="password" [attr.maxlength]="maximumPasswordLength" [(ngModel)]="userCredentials.password" class="standard-input"><br>
               <button type="submit" [disabled]="!validateCredentials()" class="standard-button">
                 <img src="../../../assets/pages/home/sign-in.png" alt="Sign in" class="wolf-bane-text size-l clickable">

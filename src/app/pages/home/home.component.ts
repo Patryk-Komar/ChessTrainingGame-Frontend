@@ -22,7 +22,6 @@ export class HomePage implements OnInit {
   constructor(private userService: UserService) {
     this.currentSection = "home";
     this.signInMethod = "username";
-    this.userCredentials = new UserCredentials();
     this.changeSection = this.changeSection.bind(this);
     this.updateSignInMethod = this.updateSignInMethod.bind(this);
     this.validateCredentials = this.validateCredentials.bind(this);
@@ -30,9 +29,9 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  ngOnDestroy() {
+    setTimeout(() => {
+      this.userCredentials = new UserCredentials(this.userService.getUsername(), this.userService.getPassword());
+    }, 500);
   }
 
   changeSection(newSection: string) {
@@ -46,6 +45,9 @@ export class HomePage implements OnInit {
   updateSignInMethod(method: string) {
     if (method !== this.signInMethod) {
       this.signInMethod = method;
+      this.userCredentials = method === "username" ?
+        new UserCredentials(this.userService.getUsername(), this.userService.getPassword()) :
+        new UserCredentials(this.userService.getEmail(), this.userService.getPassword());
       $("img.sign-in-method ").toggleClass("active").toggleClass("inactive");
     }
   }
@@ -68,9 +70,10 @@ export class HomePage implements OnInit {
       } = response;
       if (success) {
         this.changeSection("loggedIn");
+        this.userService.setLoggedIn(true);
       } else if (message) {
         alert(message);
-      } else {
+      } else if (error) {
         alert(error);
       }
     });
