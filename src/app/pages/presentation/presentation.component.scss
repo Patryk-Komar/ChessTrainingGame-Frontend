@@ -1,0 +1,31 @@
+@import "../../../styles";
+
+div.wrapper {
+    background-image: url("../../../assets/pages/presentation/presentation-page-background.jpg");
+    main {
+        margin: 20px 0;
+        p {
+            margin-bottom: 20px;
+        }
+    }
+    article {
+        margin: 20px 0;
+        &.stats {
+            section {
+                span.number {
+                    font-size: 80px;
+                    line-height: 80px;
+                    margin-bottom: -20px;
+                }
+                img {
+                    display: inline-block;
+                    margin-top: -10px;
+                }
+            }
+        }
+        &.gallery {
+        }
+        &.conclusion {
+        }
+    }
+}

@@ -11,9 +11,11 @@ import { LandingPage } from './pages/landing/landing.component';
 import { HomePage } from './pages/home/home.component';
 import { RegisterPage } from './pages/register/register.component';
 import { GamePage } from './pages/game/game.component';
+import { PresentationPage } from './pages/presentation/presentation.component';
 
 import { UserService } from './services/user.service';
 import { GameService } from './services/game.service';
+import { WebsiteService } from './services/website.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { GameService } from './services/game.service';
     LandingPage,
     HomePage,
     RegisterPage,
-    GamePage
+    GamePage,
+    PresentationPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { GameService } from './services/game.service';
   ],
   providers: [
     UserService,
-    GameService
+    GameService,
+    WebsiteService
   ],
   bootstrap: [AppComponent]
 })
