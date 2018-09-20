@@ -23,7 +23,7 @@
         </div>
         <div class="row">
           <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
-            Chess Training Game is compendium of practical knowledge and entertainment.
+              Speaking strictly, compendium of practical chess knowledge and entertainment.
           </p>
         </div>
         <div class="row">
@@ -33,17 +33,23 @@
         </div>
         <div class="row">
           <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
-            --- Something about different type of puzzles ---
+            As we all know, practice makes perfect. So, what kind of training do we offer?<br>
+            First of all, you can try to face, more or less difficult, abilities challenges in the form of engaging chess puzzles like checkmates, stalemates or double attacks.
           </p>
         </div>
         <div class="row">
           <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
-            --- Something about strategy guides and knowledge articles ---
+            Besides specific moves, you'll learn the most important in-game principles, fundamental strategies and clever maneuvers.
           </p>
         </div>
         <div class="row">
           <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
-            --- Something about discussion forum and players community ---
+            On our website you can also find plenty of thematic articles about whole game history, best professional players and many curiosities that may help you broaden your chess horizons.
+          </p>
+        </div>
+        <div class="row">
+          <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
+            Last but not least, Chess Training Game can boast of fantastic users community gathered in discussion forum. Exciting discourses and exchanges of views await every player, doesn't matter if greenhorn or expert.
           </p>
         </div>
       </main>
@@ -76,7 +82,14 @@
       </article>
       <article class="gallery col-sm-12 margin-auto">
         <img src="../../../assets/pages/presentation/gallery.png" alt="Gallery" class="wolf-bane-text size-m"><br>
-        --- Screenshots slider maybe? ---
+          <article class="slideshow col-sm-10 col-md-8 col-lg-6">
+          </article><br>
+          <span class="dots">
+            <ng-container *ngFor="let chessMaster of chessMasters; let i = index;">
+              <span *ngIf="i === currentSlide" class="dot active clickable" id="dot{{i}}" (click)="changeSlide(i)"></span>
+              <span *ngIf="i !== currentSlide" class="dot clickable" id="dot{{i}}" (click)="changeSlide(i)"></span>
+            </ng-container>
+          </span>
       </article>
       <article class="conclusion col-sm-12 margin-auto">
         Don't wait any longer!<br>

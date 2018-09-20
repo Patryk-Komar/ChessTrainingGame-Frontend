@@ -14,11 +14,7 @@ export class AuthorizationGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.userService.getLoggedIn()) {
-      return true;
-    } else {
-      this.router.navigate(["home"]);
-      return false;
-    }
+    return this.userService.checkLocalStorage()
+    .then(loggedIn => loggedIn);
   }
 }

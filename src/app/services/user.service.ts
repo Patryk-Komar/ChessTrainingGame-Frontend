@@ -16,12 +16,16 @@ export class UserService {
   private loggedIn: boolean;
 
   constructor() {
-    this.username = "";
-    this.email = "";
-    this.password = "";
-    this.loggedIn = false;
+    if (!window.localStorage) {
+      this.username = "";
+      this.email = "";
+      this.password = "";
+    } else {
+      this.username = localStorage.getItem("username") ? localStorage.getItem("username") : "";
+      this.email = localStorage.getItem("email") ? localStorage.getItem("email") : "";
+      this.password = localStorage.getItem("password") ? localStorage.getItem("password") : "";
+    }
     this.checkLocalStorage = this.checkLocalStorage.bind(this);
-    this.checkLocalStorage();
   }
 
   public getUsername(): string {
@@ -44,7 +48,7 @@ export class UserService {
     this.loggedIn = success;
   }
 
-  private checkLocalStorage(): void {
+  public checkLocalStorage() {
     if (window.localStorage) {
 
       const storageUsername = localStorage.getItem("username");
@@ -61,9 +65,11 @@ export class UserService {
           .then(data => data.success)
           .then(success => {
             if (success) {
+              this.loggedIn = true;
               this.username = storageUsername;
               this.password = storagePassword;
               signInSuccess = true;
+              return success;
             }
           })
         );
@@ -75,27 +81,34 @@ export class UserService {
           .then(data => data.success)
           .then(success => {
             if (success) {
+              this.loggedIn = true;
               this.email = storageEmail;
               this.password = storagePassword;
               signInSuccess = true;
+              return success;
             }
           })
         );
       }
 
-      Promise.all(signInPromises)
+      return Promise.all(signInPromises)
       .then(values => {
         if (!signInSuccess) {
           localStorage.removeItem("username");
           localStorage.removeItem("email");
           localStorage.removeItem("password");
         }
+        return signInSuccess;
       });
     }
   }
 
   public signIn(method:string, userCredentials: UserCredentials) {
-    return axios.get(userCredentials.prepareSignInRequestURL(method))
+    const requestBody = {
+      [method]: userCredentials.getLogin(),
+      password: userCredentials.getPassword()
+    };
+    return axios.post(userCredentials.prepareSignInRequestURL(method), requestBody)
     .then(({ data }: { data: any }) => data)
     .then(data => {
       if (data.success && window.localStorage) {
@@ -107,12 +120,18 @@ export class UserService {
   }
 
   public checkUsernameAvailability(userRegister: UserRegister) {
-    return axios.get(userRegister.prepareUsernameAvailabilityRequestURL())
+    const requestBody = {
+      username: userRegister.getUsername()
+    };
+    return axios.post(userRegister.prepareUsernameAvailabilityRequestURL(), requestBody)
     .then(({ data }: { data: any }) => data.success);
   }
 
   public checkEmailAvailability(userRegister: UserRegister) {
-    return axios.get(userRegister.prepareEmailAvailabilityRequestURL())
+    const requestBody = {
+      username: userRegister.getEmail()
+    };
+    return axios.post(userRegister.prepareEmailAvailabilityRequestURL(), requestBody)
     .then(({ data }: { data: any }) => data.success);
   }
 

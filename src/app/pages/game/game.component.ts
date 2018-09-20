@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
+import { GameService } from '../../services/game.service';
+import { UserService } from '../../services/user.service';
 import { Quotation } from "../../utils/quotations";
 import QuotationManager from "../../managers/quotation.manager";
-import { GameService } from '../../services/game.service';
 import Chessboard from '../../models/game/chessboard';
 import Move from '../../models/game/move';
 import OneMoveCheckmate from '../../models/game/game-modes/one.move.checkmate';
@@ -42,10 +43,12 @@ export class GamePage implements OnInit {
   private stalemate: Stalemate;
   private doubleAttack: DoubleAttack;
 
+  private mistakes: number;
+
   private puzzleStarted: Date;
   private puzzleFinished: Date;
   
-  constructor(private gameService: GameService) {
+  constructor(private userService: UserService, private gameService: GameService) {
     this.currentSection = "mode-selection";
     this.gameStarted = false;
     this.startRankedGame = this.startRankedGame.bind(this);
@@ -104,7 +107,7 @@ export class GamePage implements OnInit {
                 } else {
                   this.activateBlockade();
                   setTimeout(() => {
-                    this.startTrainingGame();
+                    this.startTrainingGame(this.selectedGameMode);
                   }, 500);
                 }
               } else {
@@ -122,6 +125,7 @@ export class GamePage implements OnInit {
                 chessboard.fields[fieldNumber] = pieceClone ? pieceClone : null;
               }, 250);
             }
+            this.mistakes = this[selectedGameMode].getMistakesCounter();
             this.activateBlockade();
           }
         }
@@ -150,7 +154,13 @@ export class GamePage implements OnInit {
   }
 
   startRankedGame(selectedGameMode: string): void {
+    this.selectedGameMode = selectedGameMode;
+    this.rankedGameMode = true;
+    this.blockade = false;
+    this.firstClick = false;
+    this.mistakes = 0;
     if (!this.gameStarted) {
+      this.gameStarted = true;
       $("aside.aside-left").fadeOut(500);
       $("aside.aside-right").fadeOut(500);
       setTimeout(() => {
@@ -161,13 +171,8 @@ export class GamePage implements OnInit {
         $("aside.aside-right").fadeIn(1000);
       }, 1000);
     }
-    this.selectedGameMode = selectedGameMode;
-    this.rankedGameMode = true;
-    this.gameStarted = true;
-    this.blockade = false;
-    this.firstClick = false;
     setTimeout(() => {
-      this.gameService.getRankedGame(selectedGameMode, "??? username ???")
+      this.gameService.getRankedGame(selectedGameMode, this.userService.getUsername())
       .then(response => {
         if (response.success) {
           this.showQuotation("game");
@@ -192,8 +197,14 @@ export class GamePage implements OnInit {
     }, 500);
   }
 
-  startTrainingGame(): void {
+  startTrainingGame(selectedGameMode: string): void {
+    this.selectedGameMode = selectedGameMode;
+    this.rankedGameMode = false;
+    this.blockade = false;
+    this.firstClick = false;
+    this.mistakes = 0;
     if (!this.gameStarted) {
+      this.gameStarted = true;
       $("aside.aside-left").fadeOut(500);
       $("aside.aside-right").fadeOut(500);
       setTimeout(() => {
@@ -204,45 +215,79 @@ export class GamePage implements OnInit {
         $("aside.aside-right").fadeIn(1000);
       }, 1000);
     }
-    this.rankedGameMode = false;
-    this.gameStarted = true;
-    this.blockade = false;
-    this.firstClick = false;
-    setTimeout(() => {
-      this.gameService.getRandomGame()
-      .then(response => {
-        if (response.success) {
-          this.showQuotation("game");
-          const {
-            gameModeName,
-            result
-          } = response;
-          const {
-            id,
-            color,
-            fields,
-            solutions
-          } = result;
-          this.selectedGameMode = gameModeName;
-          const GameModeClass = gameModesMapping[gameModeName];
-          if (gameModeName !== "twoMovesCheckmate" && gameModeName !== "threeMovesCheckmate") {
-            this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions);
+    if (selectedGameMode === "random") {
+      setTimeout(() => {
+        this.gameService.getRandomGame()
+        .then(response => {
+          if (response.success) {
+            this.showQuotation("game");
+            const {
+              gameModeName,
+              result
+            } = response;
+            const {
+              id,
+              color,
+              fields,
+              solutions
+            } = result;
+            this.selectedGameMode = gameModeName;
+            const GameModeClass = gameModesMapping[gameModeName];
+            if (gameModeName !== "twoMovesCheckmate" && gameModeName !== "threeMovesCheckmate") {
+              this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions);
+            } else {
+              const enemyMoves = result["enemy-moves"];
+              this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions, enemyMoves)
+            }
+            setTimeout(() => {
+              this.chessboard = this[gameModeName].getChessboard();
+            }, 500);
           } else {
-            const enemyMoves = result["enemy-moves"];
-            this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions, enemyMoves)
+            const {
+              message
+            } = response;
+            this.error = message ? message : "Unknown error occurred. Please try again."
+            this.showError("puzzle-selection");
           }
-          setTimeout(() => {
-            this.chessboard = this[gameModeName].getChessboard();
-          }, 500);
-        } else {
-          const {
-            message
-          } = response;
-          this.error = message ? message : "Unknown error occurred. Please try again."
-          this.showError("puzzle-selection");
-        }
-      });
-    }, 500);
+        });
+      }, 500);
+    } else {
+      setTimeout(() => {
+        this.gameService.getTrainingGame(this.selectedGameMode)
+        .then(response => {
+          if (response.success) {
+            this.showQuotation("game");
+            const {
+              gameModeName,
+              result
+            } = response;
+            const {
+              id,
+              color,
+              fields,
+              solutions
+            } = result;
+            this.selectedGameMode = gameModeName;
+            const GameModeClass = gameModesMapping[gameModeName];
+            if (gameModeName !== "twoMovesCheckmate" && gameModeName !== "threeMovesCheckmate") {
+              this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions);
+            } else {
+              const enemyMoves = result["enemy-moves"];
+              this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions, enemyMoves)
+            }
+            setTimeout(() => {
+              this.chessboard = this[gameModeName].getChessboard();
+            }, 500);
+          } else {
+            const {
+              message
+            } = response;
+            this.error = message ? message : "Unknown error occurred. Please try again."
+            this.showError("puzzle-selection");
+          }
+        });
+      }, 500);
+    }
   }
 
   showQuotation(returnSection: string): void {

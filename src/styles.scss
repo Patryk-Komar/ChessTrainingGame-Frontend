@@ -59,7 +59,7 @@ div.wrapper {
 }
 
 img.wolf-bane-text {
-    max-width: 90vh;
+    max-width: 90%;
     &.clickable {
         opacity: 0.25;
         transition: all 0.5s ease-in-out;
@@ -197,4 +197,7 @@ footer.standard-footer {
     font-size: 12px;
     opacity: 0.75;
     position: fixed;
+    @media only screen and (max-width: 768px), screen and (max-height: 432px) {
+        display: none;
+    }
 }

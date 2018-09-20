@@ -8,15 +8,54 @@ import { UserService } from './user.service';
 })
 export class GameService {
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
-  getRankedGame(gameMode: string, username: string) {
+  isGameModeUnlocked(gameMode: string, username: string) {
     const requestBody = {
       gameMode: gameMode,
       username: username
-    }
-    return axios.post("/api/game/ranked/puzzles/get", requestBody)
-    .then(({ data }: { data: any }) => data);
+    };
+    return axios.post("/api/game/puzzles/unlocked", requestBody)
+    .then(({ data }: { data: any }) => data.success);
+  }
+
+  isGameModeUncompleted(gameMode: string, username: string) {
+    const requestBody = {
+      gameMode: gameMode,
+      username: username
+    };
+    return axios.post("/api/game/puzzles/ranked/completed", requestBody)
+    .then(({ data }: { data: any }) => data.success);
+  }
+  
+
+  getRankedGame(gameMode: string, username: string) {
+    return this.isGameModeUnlocked(gameMode, username)
+    .then(isUnlocked => {
+      if (isUnlocked) {
+        return this.isGameModeUncompleted(gameMode, username)
+        .then(isUncompleted => {
+          if (isUncompleted) {
+            const requestBody = {
+              gameMode: gameMode,
+              username: username
+            }
+            return axios.post("/api/game/puzzles/ranked/get", requestBody)
+            .then(({ data }: { data: any }) => data);
+          } else {
+            return {
+              message: "This game mode is already completed. Now you can use only training mode.",
+              success: false
+            };
+          }
+        })
+      } else {
+        return {
+          message: "You haven't unlocked this game mode yet. First you have to complete another puzzles.",
+          success: false
+        };
+      }
+    });
   }
 
   saveRankedGameResult(gameMode: string, id: number, time: number, mistakes: number, username: string) {
@@ -27,13 +66,23 @@ export class GameService {
       mistakes: mistakes,
       username: username
     }
-    return axios.put("/api/game/ranked/puzzles/update", requestBody)
-    .then(({ data }: { data: any }) => data)
-    .then(console.log);
+    return axios.put("/api/game/puzzles/ranked/update", requestBody)
+    .then(({ data }: { data: any }) => data);
+  }
+
+  getTrainingGame(gameMode: string) {
+    const requestBody = {
+      gameMode: gameMode
+    };
+    return axios.post("/api/game/puzzles/non-ranked/get", requestBody)
+    .then(({ data }: { data: any }) => data);
   }
 
   getRandomGame() {
-    return axios.post("/api/game/non-ranked/puzzles")
+    const requestBody = {
+      random: true
+    };
+    return axios.post("/api/game/puzzles/non-ranked/get", requestBody)
     .then(({ data }: { data: any }) => data);
   }
 

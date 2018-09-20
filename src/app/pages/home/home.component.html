@@ -1,7 +1,7 @@
 <div class="wrapper fullscreen">
   <div class="container-fluid">
     <div class="row">
-      <header class="col-sm-8 col-md-6 col-lg-5 margin-auto standard-header">
+      <header class="col-sm-8 col-md-6 col-lg-4 margin-auto standard-header">
         <a href="/home">
           <logo>
           </logo>
@@ -42,27 +42,41 @@
               <img src="../../../assets/shared/back.png" alt="Back" class="back wolf-bane-text size-xs clickable" (click)="changeSection('home')">
             </form>
           </div>
-          <div *ngIf="currentSection === 'loggedIn'">
-            <article class="player-profile" class="flex-row">
-              <section>
-                Read about best moves and strategies!<br>
-                <a href="/guide">
-                  <img src="../../../assets/pages/home/check-strategy-guide.png" alt="Check strategy guide" class="wolf-bane-text size-m clickable">
-                </a>
-              </section>
-              <section>
-                Can you pass most difficult challenges?<br>
+          <div *ngIf="currentSection === 'loggedIn'" class="player-profile">
+            <div class="row">
+              <article class="col-sm-12 margin-auto">
+                Face most difficult challenges!<br>
                 <a href="/game">
-                  <img src="../../../assets/pages/home/begin-training-session.png" alt="Begin training session" class="wolf-bane-text size-l clickable">
+                  <img src="../../../assets/pages/home/begin-training-session.png" alt="Begin training session" class="wolf-bane-text size-m clickable">
                 </a>
-              </section>
-              <section>
-                Take part in exciting discourses!<br>
+              </article>
+            </div>
+            <div class="row">
+              <article class="col-sm-8 col-md-6 col-lg-6 col-xl-3 margin-auto">
+                Learn rules and strategies!<br>
+                <a href="/guide">
+                  <img src="../../../assets/pages/home/check-official-guide.png" alt="Check official guide" class="wolf-bane-text size-m clickable">
+                </a>
+              </article>
+              <article class="col-sm-8 col-md-6 col-lg-6 col-xl-3 margin-auto">
+                Join exciting discourses!<br>
                 <a href="/forum">
                   <img src="../../../assets/pages/home/visit-discussion-forum.png" alt="Visit discussion forum" class="wolf-bane-text size-m clickable">
                 </a>
-              </section>
-            </article>
+              </article>
+              <article class="col-sm-8 col-md-6 col-lg-6 col-xl-3 margin-auto">
+                Increase chess knowledge!<br>
+                <a href="/articles">
+                  <img src="../../../assets/pages/home/read-our-publications.png" alt="Read our publications" class="wolf-bane-text size-m clickable">
+                </a>
+              </article>
+              <article class="col-sm-8 col-md-6 col-lg-6 col-xl-3 margin-auto">
+                Customize your profile!<br>
+                <a href="/account">
+                  <img src="../../../assets/pages/home/change-account-settings.png" alt="Change account settings" class="wolf-bane-text size-m clickable">
+                </a>
+              </article>
+            </div>
           </div>
         </div>
       </main>

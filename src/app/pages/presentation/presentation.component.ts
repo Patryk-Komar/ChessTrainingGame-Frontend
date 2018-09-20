@@ -17,15 +17,45 @@ export class PresentationPage implements OnInit {
 
   private numberChangeStarted: boolean;
 
+  private chessMasters: Array <string>;
+  private currentSlide: number;
+  private slideshowInterval: any;
+
   constructor(private websiteService: WebsiteService) {
     this.chessPuzzles = 0;
     this.strategyGuides = 0;
     this.thematicArticles = 0;
     this.forumThreads = 0;
     this.numberChangeStarted = false;
+    this.chessMasters = [
+      "Bobby Fischer",
+      "Garry Kasparov",
+      "Fabiano Caruana",
+      "Levon Aronian",
+      "Magnus Carlsen"
+    ];
+    this.currentSlide = 0;
   }
 
   ngOnInit() {
+    this.startSlideshow();
+    this.addScrollListener();
+  }
+
+  startSlideshow(): void {
+    this.slideshowInterval = setInterval(() => {
+      $(`#dot${this.currentSlide}`).toggleClass("active");
+      this.currentSlide = this.currentSlide === this.chessMasters.length - 1 ? 0 : this.currentSlide + 1;
+      $(`#dot${this.currentSlide}`).toggleClass("active");
+      const chessMaster = this.chessMasters[this.currentSlide].replace(" ", "-").toLowerCase();
+      const backgroundImage = `url("../../../assets/pages/presentation/${chessMaster}.jpg")`;
+      $("article.slideshow").css("background-image", backgroundImage);
+    }, 5000);
+  }
+
+  addScrollListener(): void {
+    const x = $("article.slideshow").css("width").replace("px", "");
+    $("article.slideshow").css("height", `${parseInt(x) * (4 / 5)}px`);
     const component = this;
     this.websiteService.getPresentationStatistics()
     .then(data => {
@@ -83,6 +113,21 @@ export class PresentationPage implements OnInit {
         }
       });
     });
+  }
+
+  changeSlide(slideNumber: number): void {
+    if (slideNumber === this.currentSlide) {
+      return;
+    } else {
+      clearInterval(this.slideshowInterval);
+      $(`#dot${this.currentSlide}`).toggleClass("active");
+      this.currentSlide = slideNumber;
+      $(`#dot${this.currentSlide}`).toggleClass("active");
+      const chessMaster = this.chessMasters[slideNumber].replace(" ", "-").toLowerCase();
+      const backgroundImage = `url("../../../assets/pages/presentation/${chessMaster}.jpg")`;
+      $("article.slideshow").css("background-image", backgroundImage);
+      this.startSlideshow();
+    }
   }
 
 }

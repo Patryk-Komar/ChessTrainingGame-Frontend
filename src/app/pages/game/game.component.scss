@@ -81,5 +81,20 @@ div.wrapper {
     aside {
         margin: 0;
         text-align: center;
+        span.username {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        span.link {
+            color: #2266cc;
+            font-size: 14px;
+            font-style: italic;
+            text-decoration: none;
+            transition: all 0.25s ease-in-out;
+            &:hover {
+                color: #5599ff;
+                text-decoration: none;
+            }
+        }
     }
 }
