@@ -1,0 +1,69 @@
+<div class="wrapper fullscreen">
+  <div class="container-fluid">
+    <div class="row">
+      <header class="col-sm-8 col-md-6 col-lg-4 margin-auto standard-header">
+        <a href="/home">
+          <logo>
+          </logo>
+        </a>
+      </header>
+    </div>
+    <article class="quote">
+      <q>
+        Nobody ever won a chess game by resigning.
+      </q>
+      <span class="author">
+        ~ Savielly Tartakower
+      </span>
+    </article>
+    <main>
+      <div class="row" *ngIf="currentSection === 'articles-type-selection'">
+        <header class="col-sm-12 margin-auto">
+          <img src="../../../assets/pages/articles/select-articles-type.png" alt="Select articles type" class="wolf-bane-text size-l">
+        </header>
+        <section class="col-md-3 margin-auto">
+          <img src="../../../assets/pages/articles/legendary-players.png" alt="Legendary players" class="wolf-bane-text size-s clickable" (click)="changeSection('legendary-players')">
+        </section>
+        <section class="col-md-3 margin-auto">
+          <img src="../../../assets/pages/articles/memorable-games.png" alt="Memorable games" class="wolf-bane-text size-s clickable" (click)="changeSection('memorable-games')">
+        </section>
+        <section class="col-md-3 margin-auto">
+          <img src="../../../assets/pages/articles/historical-curiosities.png" alt="Historical curiosities" class="wolf-bane-text size-s clickable" (click)="changeSection('historical-curiosities')">
+        </section>
+      </div>
+      <div class="row" *ngIf="currentSection === 'legendary-players' || currentSection === 'memorable-games' || currentSection === 'historical-curiosities'">
+        <ng-container *ngFor="let article of articlesManager.articles">
+          <article *ngIf="(currentSection === 'legendary-players' && article.getCategory() === 'player') || (currentSection === 'memorable-games' && article.getCategory() === 'game') || (currentSection === 'historical-curiosities' && article.getCategory() === 'curiosity')" class="col-sm-6 col-md-3 col-lg-2 margin-auto clickable" (click)="showArticle(article.getTitle())">
+            <span class="article-image">
+              <img src="../../../assets/pages/articles/miniatures/{{article.getTitle().replace(' ', '-').toLowerCase()}}.jpg" alt="{{article.getTitle()}}">
+            </span><br>
+            <span class="article-title">
+              {{article.getTitle()}}
+            </span>
+          </article>
+        </ng-container>
+        <div class="col-sm-12 margin-auto">
+          <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('articles-type-selection')">
+        </div>
+      </div>
+      <div class="row" *ngIf="currentSection === 'article'">
+        <article class="article-content col-sm-12 col-md-10 col-lg-8 margin-auto">
+          <span class="article-details-image">
+            <img src="../../../assets/pages/articles/miniatures/{{selectedArticle.getTitle().replace(' ', '-').toLowerCase()}}.jpg" alt="selectedArticle.getTitle()">
+          </span><br>
+          <span class="article-details-title">
+            {{selectedArticle.getTitle()}}
+          </span><br>
+          <p *ngFor="let paragraph of parsedArticle">
+            {{paragraph}}
+          </p>
+        </article>
+        <div class="col-sm-12 margin-auto">
+          <img *ngIf="selectedArticle.getCategory() === 'player'" src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('legendary-players')">
+          <img *ngIf="selectedArticle.getCategory() === 'game'" src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('memorable-games')">
+          <img *ngIf="selectedArticle.getCategory() === 'curiosity'" src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('historical-curiosities')">
+        </div>
+      </div>
+    </main>
+  </div>	
+</div>

@@ -1,0 +1,61 @@
+@import "../../../styles";
+
+div.wrapper {
+    background-image: url("../../../assets/pages/articles/articles-page-background.jpg");
+    main {
+        padding: 30px;
+        article {
+            span.article-image {
+                border: 2px solid #bbb;
+                border-radius: 50%;
+                display: inline-block;
+                height: 150px;
+                overflow: hidden;
+                transition: all 0.5s ease-in-out;
+                width: 150px;
+                &:hover {
+                    border-color: $white;
+                    img {
+                        filter: brightness(100%);
+                        transform: scale(1.05);
+                    }
+                }
+                img {
+                    filter: brightness(70%);
+                    height: 100%;
+                    transition: all 0.5s ease-in-out;
+                    width: 100%;
+                }
+            }
+            span.article-title {
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+    }
+    article.article-content {
+        span.article-details-image {
+            border: 3px solid $white;
+            border-radius: 10px;
+            display: inline-block;
+            height: 300px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            width: 300px;
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+        span.article-details-title {
+            display: inline-block;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        p {
+            text-align: justify;
+            text-indent: 50px;
+        }
+    }
+}

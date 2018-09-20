@@ -13,4 +13,9 @@ export class WebsiteService {
     .then(({ data }: { data: any }) => data);
   }
 
+  getAllThematicArticles() {
+    return axios.get(`api/articles/all`)
+    .then(({ data }: { data: any }) => data);
+  }
+
 }

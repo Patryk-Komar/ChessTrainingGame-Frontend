@@ -16,6 +16,7 @@ import { PresentationPage } from './pages/presentation/presentation.component';
 import { UserService } from './services/user.service';
 import { GameService } from './services/game.service';
 import { WebsiteService } from './services/website.service';
+import { ArticlesPage } from './pages/articles/articles.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { WebsiteService } from './services/website.service';
     HomePage,
     RegisterPage,
     GamePage,
-    PresentationPage
+    PresentationPage,
+    ArticlesPage
   ],
   imports: [
     BrowserModule,
