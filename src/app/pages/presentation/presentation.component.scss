@@ -1,0 +1,64 @@
+@import "../../../styles";
+
+div.wrapper {
+    background-image: url("../../../assets/pages/presentation/presentation-page-background.jpg");
+    main {
+        margin-bottom: 20px;
+        div {
+            margin-bottom: 30px;
+            &:first-child {
+                margin-bottom: 0;
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    article {
+        margin: 20px 0;
+        &.stats {
+            section {
+                span.number {
+                    font-size: 80px;
+                    line-height: 80px;
+                    margin-bottom: -20px;
+                }
+                img {
+                    display: inline-block;
+                    margin-top: -10px;
+                }
+            }
+        }
+        &.gallery {
+            article.slideshow {
+                background-image: url("../../../assets/pages/presentation/bobby-fischer.jpg");
+                background-position: center;
+                background-size: cover;
+                border: 3px solid $white;
+                border-radius: 20px;
+                display: inline-block;
+                margin: 0;
+                overflow: hidden;
+                transition: all 1s ease-in-out;
+            }
+            span.dots {
+                display: inline-block;
+                span.dot {
+                    background-color: $transparent;
+                    border: 2px solid $white;
+                    border-radius: 50%;
+                    display: inline-block;
+                    height: 15px;
+                    margin: 0 3px;
+                    transition: all 0.5s ease-in-out;
+                    width: 15px;
+                    &.active {
+                        background-color: $white;
+                    }
+                }
+            }
+        }
+        &.conclusion {
+        }
+    }
+}

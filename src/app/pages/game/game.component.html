@@ -1,0 +1,135 @@
+<div class="wrapper fullscreen">
+  <div class="container-fluid">
+    <div class="row">
+      <header class="col-sm-8 col-md-6 col-lg-4 margin-auto standard-header">
+        <a href="/home">
+          <logo>
+          </logo>
+        </a>
+      </header>
+    </div>
+    <div class="row">
+      <aside class="aside-left col-sm-10 col-lg-4 margin-auto">
+        <div *ngIf="currentSection === 'mode-selection' || currentSection === 'puzzle-selection-ranked' || currentSection === 'puzzle-selection-training'">
+          <img src="../../../assets/pages/game/whats-ranked-game.png" alt="What's ranked game?" class="wolf-bane-text size-s">
+        </div>
+        <div *ngIf="currentSection === 'quotation' || currentSection === 'game'">
+          <img src="../../../assets/pages/game/profile.png" alt="Profile" class="wolf-bane-text size-s"><br>
+          <!-- Player avatar -->
+          <span class="username">{{userService.getUsername()}}</span><br>
+          <a href="/account"><span class="link">manage account</span></a><br>
+          <img src="../../../assets/pages/game/your-scores.png" alt="Your scores" class="wolf-bane-text size-s">
+        </div>
+      </aside>
+      <main class="col-sm-12 col-md-10 col-lg-4 margin-auto">
+        <div class="main">
+          <div *ngIf="currentSection === 'quotation'" class="flex-column">
+            <article class="quote">
+              <q>
+                {{quotation.content}}
+              </q>
+              <span class="author">
+                ~ {{quotation.author}}
+              </span>
+            </article>
+          </div>
+          <div *ngIf="currentSection === 'mode-selection'" class="mode-selection flex-column">
+            <header class="mode-selection-header flex-row">
+              <img src="../../../assets/pages/game/select-game-mode.png" alt="Select game mode" class="wolf-bane-text size-l">
+            </header>
+            <article class="flex-row">
+              <div>
+                <span class="hover-all clickable" (click)="changeSection('puzzle-selection-ranked')">
+                  <img src="../../../assets/pages/game/ranked.png" alt="Ranked" class="wolf-bane-text size-s clickable"><br>
+                  <img src="../../../assets/pages/game/ranked-rook.png" alt="Rook" class="piece clickable">
+                </span>
+              </div>
+              <div>
+                <span class="hover-all clickable" (click)="changeSection('puzzle-selection-training')">
+                  <img src="../../../assets/pages/game/training.png" alt="Training" class="wolf-bane-text size-s clickable"><br>
+                  <img src="../../../assets/pages/game/training-pawn.png" alt="Pawn" class="piece clickable">
+                </span>
+              </div>
+            </article>
+          </div>
+          <div *ngIf="currentSection === 'puzzle-selection-ranked'" class="puzzle-selection flex-column">
+            <header class="mode-selection-header flex-row">
+              <img src="../../../assets/pages/game/select-puzzle-type.png" alt="Select puzzle type" class="wolf-bane-text size-l">
+            </header>
+            <article class="flex-row">
+              <img src="../../../assets/pages/game/checkmates-one-move.png" alt="Checkmates by 1 move" class="wolf-bane-text size-s clickable" (click)="startRankedGame('oneMoveCheckmate')">
+              <img src="../../../assets/pages/game/checkmates-two-moves.png" alt="Checkmates by 2 moves" class="wolf-bane-text size-s clickable" (click)="startRankedGame('twoMovesCheckmate')">
+              <img src="../../../assets/pages/game/checkmates-three-moves.png" alt="Checkmates by 3 moves" class="wolf-bane-text size-s clickable" (click)="startRankedGame('threeMovesCheckmate')">
+            </article>
+            <article class="flex-row">
+              <img src="../../../assets/pages/game/stalemates.png" alt="Stalemates" class="wolf-bane-text size-s clickable" (click)="startRankedGame('stalemate')">
+              <img src="../../../assets/pages/game/double-attacks.png" alt="Double attacks" class="wolf-bane-text size-s clickable" (click)="startRankedGame('doubleAttack')">
+            </article>
+            <article class="back-button flex-row">
+              <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-xs clickable" (click)="changeSection('mode-selection')">
+            </article>
+          </div>
+          <div *ngIf="currentSection === 'puzzle-selection-training'" class="puzzle-selection flex-column">
+            <header class="mode-selection-header flex-row">
+              <img src="../../../assets/pages/game/select-puzzle-type.png" alt="Select puzzle type" class="wolf-bane-text size-l">
+            </header>
+            <article class="flex-row">
+              <img src="../../../assets/pages/game/checkmates-one-move.png" alt="Checkmates by 1 move" class="wolf-bane-text size-s clickable" (click)="startTrainingGame('oneMoveCheckmate')">
+              <img src="../../../assets/pages/game/checkmates-two-moves.png" alt="Checkmates by 2 moves" class="wolf-bane-text size-s clickable" (click)="startTrainingGame('twoMovesCheckmate')">
+              <img src="../../../assets/pages/game/checkmates-three-moves.png" alt="Checkmates by 3 moves" class="wolf-bane-text size-s clickable" (click)="startTrainingGame('threeMovesCheckmate')">
+            </article>
+            <article class="flex-row">
+              <img src="../../../assets/pages/game/stalemates.png" alt="Stalemates" class="wolf-bane-text size-s clickable" (click)="startTrainingGame('stalemate')">
+              <img src="../../../assets/pages/game/double-attacks.png" alt="Double attacks" class="wolf-bane-text size-s clickable" (click)="startTrainingGame('doubleAttack')">
+              <img src="../../../assets/pages/game/random.png" alt="Random" class="wolf-bane-text size-s clickable" (click)="startTrainingGame('random')">
+            </article>
+            <article class="back-button flex-row">
+              <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-xs clickable" (click)="changeSection('mode-selection')">
+            </article>
+          </div>
+          <div *ngIf="currentSection === 'game'">
+            <div class="chessboard margin-auto">
+              <ng-container *ngFor="let piece of chessboard.fields; let i = index;">
+                <ng-container *ngIf="((i / 8) - (i % 8) / 8) % 2 === 0">
+                  <div id="field-{{i}}" *ngIf="i % 2 === 0" class="chessboard-field white clickable" (click)="chessboardFieldClick(i)">
+                    <img *ngIf="piece !== null" src="{{piece.prepareAssetsURL()}}" alt="{{piece.prepareAlternativeDescription}}" class="chess-piece">
+                  </div>
+                  <div id="field-{{i}}" *ngIf="i % 2 === 1" class="chessboard-field black clickable" (click)="chessboardFieldClick(i)">
+                    <img *ngIf="piece !== null" src="{{piece.prepareAssetsURL()}}" alt="{{piece.prepareAlternativeDescription}}" class="chess-piece">
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="((i / 8) - (i % 8) / 8) % 2 === 1">
+                  <div id="field-{{i}}" *ngIf="i % 2 === 0" class="chessboard-field black clickable" (click)="chessboardFieldClick(i)">
+                    <img *ngIf="piece !== null" src="{{piece.prepareAssetsURL()}}" alt="{{piece.prepareAlternativeDescription}}" class="chess-piece">
+                  </div>
+                  <div id="field-{{i}}" *ngIf="i % 2 === 1" class="chessboard-field white clickable" (click)="chessboardFieldClick(i)">
+                    <img *ngIf="piece !== null" src="{{piece.prepareAssetsURL()}}" alt="{{piece.prepareAlternativeDescription}}" class="chess-piece">
+                  </div>
+                </ng-container>
+                <div *ngIf="i % 8 === 7" class="clear-both"></div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="currentSection === 'error'">
+            {{error}}
+          </div>
+        </div>
+      </main>
+      <aside class="aside-right col-sm-10 col-md-6 col-lg-4 margin-auto">
+        <div *ngIf="currentSection === 'mode-selection' || currentSection === 'puzzle-selection-ranked' || currentSection === 'puzzle-selection-training'">
+          <img src="../../../assets/pages/game/whats-training-game.png" alt="What's training game?" class="wolf-bane-text size-s">
+        </div>
+        <div *ngIf="currentSection === 'game' || currentSection === 'quotation'">
+          <img src="../../../assets/pages/game/game-info.png" alt="Game info" class="wolf-bane-text size-s"><br>
+          Game mode: {{selectedGameMode}}<br>
+          Mistakes: {{mistakes}}<br>
+          <img src="../../../assets/pages/game/navigation.png" alt="Navigation" class="wolf-bane-text size-s">
+        </div>
+      </aside>
+      <footer class="col-sm-12 margin-auto standard-footer">
+        Copyright © Chess Training Game, 2018<br>
+        All right reserved
+      </footer>
+    </div>
+  </div>	
+</div>

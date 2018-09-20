@@ -9,8 +9,13 @@ import { AppComponent } from './app.component';
 import { Logo } from './components/logo/logo.component';
 import { LandingPage } from './pages/landing/landing.component';
 import { HomePage } from './pages/home/home.component';
-import { UserService } from './services/user.service';
 import { RegisterPage } from './pages/register/register.component';
+import { GamePage } from './pages/game/game.component';
+import { PresentationPage } from './pages/presentation/presentation.component';
+
+import { UserService } from './services/user.service';
+import { GameService } from './services/game.service';
+import { WebsiteService } from './services/website.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,9 @@ import { RegisterPage } from './pages/register/register.component';
     Logo,
     LandingPage,
     HomePage,
-    RegisterPage
+    RegisterPage,
+    GamePage,
+    PresentationPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +35,9 @@ import { RegisterPage } from './pages/register/register.component';
     FormsModule
   ],
   providers: [
-    UserService
+    UserService,
+    GameService,
+    WebsiteService
   ],
   bootstrap: [AppComponent]
 })

@@ -41,8 +41,25 @@ div.wrapper {
     margin: 0 auto;
 }
 
+.clear-both {
+    clear: both;
+}
+
+.flex-row {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.flex-column {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
 img.wolf-bane-text {
-    max-width: 90vh;
+    max-width: 90%;
     &.clickable {
         opacity: 0.25;
         transition: all 0.5s ease-in-out;
@@ -90,7 +107,12 @@ img.wolf-bane-text {
 
 header.standard-header {
     max-width: 90vw;
+    opacity: 0.5;
     padding: 30px 10px 20px;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        opacity: 1;
+    }
     @media only screen and (max-width: 1280px), screen and (max-height: 720px) {
         padding: 20px 10px;
     }
@@ -174,5 +196,8 @@ footer.standard-footer {
     bottom: 10px;
     font-size: 12px;
     opacity: 0.75;
-    position: absolute;
+    position: fixed;
+    @media only screen and (max-width: 768px), screen and (max-height: 432px) {
+        display: none;
+    }
 }

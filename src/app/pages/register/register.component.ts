@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
-import { UserRegister } from '../../models/user.register';
+import { UserRegister } from '../../models/users/user.register';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class RegisterPage implements OnInit {
   private registerError: string;
 
   constructor(private userService: UserService) {
-    this.currentSection = "registered";
+    this.currentSection = "pre-rules";
     this.userRegister = new UserRegister();
     this.registerError = "";
     this.validateCredentials = this.validateCredentials.bind(this);

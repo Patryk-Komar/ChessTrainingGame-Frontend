@@ -8,8 +8,16 @@ export class UserCredentials {
         this.password = password || "";
     }
 
+    public getLogin(): string {
+        return this.login;
+    }
+
+    public getPassword(): string {
+        return this.password;
+    }
+
     public validateUsername(): boolean {
-        const usernameRegex = new RegExp(/^[A-Za-z][a-zA-Z0-9.-_]{2,15}$/);
+        const usernameRegex = new RegExp(/^[A-Za-z][-a-zA-Z0-9._]{2,15}$/);
         return usernameRegex.test(this.login);
     }
 
@@ -24,7 +32,7 @@ export class UserCredentials {
     }
 
     public prepareSignInRequestURL(method: string): string {
-        return `/users/signIn/${method}/${this.login}/${this.password}`;
+        return `/api/users/signIn/${method}`;
     }
 
 }

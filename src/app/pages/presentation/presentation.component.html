@@ -1,0 +1,102 @@
+<div class="wrapper fullscreen">
+  <div class="container-fluid">
+    <div class="row">
+      <header class="col-sm-8 col-md-6 col-lg-4 margin-auto standard-header">
+        <a href="/home">
+          <logo>
+          </logo>
+        </a>
+      </header>
+      <article class="quote col-sm-12 margin-auto">
+        <q>
+          Chess, like love, like music, has the power to make men happy.
+        </q>
+        <span class="author">
+          ~ Siegbert Tarrasch
+        </span>
+      </article>
+      <main class="col-sm-12 margin-auto">
+        <div class="row">
+          <header class="col-sm-12">
+            <img src="../../../assets/pages/presentation/whats-chess-training-game.png" alt="What's Chess Training Game?" class="wolf-bane-text size-m">
+          </header>
+        </div>
+        <div class="row">
+          <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
+              Speaking strictly, compendium of practical chess knowledge and entertainment.
+          </p>
+        </div>
+        <div class="row">
+          <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
+            It's innovative tool designed both for beginners who want to start their chess adventure and intermediate players interested in improving their skills.
+          </p>
+        </div>
+        <div class="row">
+          <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
+            As we all know, practice makes perfect. So, what kind of training do we offer?<br>
+            First of all, you can try to face, more or less difficult, abilities challenges in the form of engaging chess puzzles like checkmates, stalemates or double attacks.
+          </p>
+        </div>
+        <div class="row">
+          <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
+            Besides specific moves, you'll learn the most important in-game principles, fundamental strategies and clever maneuvers.
+          </p>
+        </div>
+        <div class="row">
+          <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
+            On our website you can also find plenty of thematic articles about whole game history, best professional players and many curiosities that may help you broaden your chess horizons.
+          </p>
+        </div>
+        <div class="row">
+          <p class="col-sm-10 col-md-8 col-lg-5 margin-auto">
+            Last but not least, Chess Training Game can boast of fantastic users community gathered in discussion forum. Exciting discourses and exchanges of views await every player, doesn't matter if greenhorn or expert.
+          </p>
+        </div>
+      </main>
+      <article class="stats col-sm-12 margin-auto">
+        <div class="row">
+          <header class="col-sm-12 margin-auto">
+            <img src="../../../assets/pages/presentation/our-project-in-numbers.png" alt="Our project in numbers" class="wolf-bane-text size-m">
+          </header>
+          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+          </section>
+          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+            <span class="number">{{chessPuzzles}}</span><br>
+            <img src="../../../assets/pages/presentation/chess-puzzles.png" alt="Chess puzzles" class="wolf-bane-text size-m">
+          </section>
+          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+            <span class="number">{{strategyGuides}}</span><br>
+            <img src="../../../assets/pages/presentation/strategy-guides.png" alt="Strategy guides" class="wolf-bane-text size-m">
+          </section>
+          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+            <span class="number">{{thematicArticles}}</span><br>
+            <img src="../../../assets/pages/presentation/thematic-articles.png" alt="Thematic articles" class="wolf-bane-text size-m">
+          </section>
+          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+            <span class="number">{{forumThreads}}</span><br>
+            <img src="../../../assets/pages/presentation/forum-threads.png" alt="Forum threads" class="wolf-bane-text size-m">
+          </section>
+          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+          </section>
+        </div>
+      </article>
+      <article class="gallery col-sm-12 margin-auto">
+        <img src="../../../assets/pages/presentation/gallery.png" alt="Gallery" class="wolf-bane-text size-m"><br>
+          <article class="slideshow col-sm-10 col-md-8 col-lg-6">
+          </article><br>
+          <span class="dots">
+            <ng-container *ngFor="let chessMaster of chessMasters; let i = index;">
+              <span *ngIf="i === currentSlide" class="dot active clickable" id="dot{{i}}" (click)="changeSlide(i)"></span>
+              <span *ngIf="i !== currentSlide" class="dot clickable" id="dot{{i}}" (click)="changeSlide(i)"></span>
+            </ng-container>
+          </span>
+      </article>
+      <article class="conclusion col-sm-12 margin-auto">
+        Don't wait any longer!<br>
+        <a href="/register">
+          <img src="../../../assets/pages/presentation/create-player-account.png" alt="Create player account" class="wolf-bane-text size-m clickable">
+        </a>
+      </article>
+    </div>
+  </div>	
+</div>
