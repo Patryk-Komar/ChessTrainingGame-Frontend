@@ -12,11 +12,12 @@ import { HomePage } from './pages/home/home.component';
 import { RegisterPage } from './pages/register/register.component';
 import { GamePage } from './pages/game/game.component';
 import { PresentationPage } from './pages/presentation/presentation.component';
+import { ArticlesPage } from './pages/articles/articles.component';
+import { ErrorPage } from './pages/error/error.component';
 
 import { UserService } from './services/user.service';
 import { GameService } from './services/game.service';
 import { WebsiteService } from './services/website.service';
-import { ArticlesPage } from './pages/articles/articles.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ArticlesPage } from './pages/articles/articles.component';
     RegisterPage,
     GamePage,
     PresentationPage,
-    ArticlesPage
+    ArticlesPage,
+    ErrorPage
   ],
   imports: [
     BrowserModule,
