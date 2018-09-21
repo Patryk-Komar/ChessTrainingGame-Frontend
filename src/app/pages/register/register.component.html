@@ -1,7 +1,7 @@
 <div class="wrapper fullscreen">
   <div class="container-fluid">
     <div class="row">
-      <header class="col-sm-8 col-md-6 col-lg-5 margin-auto standard-header">
+      <header class="col-sm-8 col-md-6 col-lg-4 margin-auto standard-header">
         <a href="/home">
           <logo>
           </logo>
@@ -16,36 +16,46 @@
             ~ Irving Chernev
           </span>
         </article>
-        <article class="main col-sm-12 col-md-8 col-lg-6 xl-4 margin-auto">
+        <article class="main col-sm-12 col-md-8 col-lg-6 margin-auto">
           <div *ngIf="currentSection === 'pre-rules'">
-            <img src="../../../assets/pages/register/registration-pre-rules.png" alt="Registration pre-rules" class="wolf-bane-text size-l">
+            <img src="../../../assets/pages/register/registration-pre-rules.png" alt="Registration pre-rules" class="wolf-bane-text size-m">
             <section>
-              Hello world - pre-rules
+              <p>
+                In order to start training, you have to create player account and confirm email address.
+              </p>
+              <p>
+                All information entered in this registration form must be authentic.<br>
+                Providing false data may result in deleting the account without giving a reason.
+              </p>
+              <p>
+                By joining our community, you agree to the processing of your personal data.<br>
+                It's used only for the purposes of identifying users on the discussion forums, saving game progress and positioning in the ranking system.
+              </p>
             </section>
             <img src="../../../assets/pages/register/start.png" alt="Start" class="wolf-bane-text size-s clickable" (click)="changeSection('credentials')">
           </div>
           <div *ngIf="currentSection === 'credentials'">
-            <img src="../../../assets/pages/register/credentials.png" alt="Credentials" class="wolf-bane-text size-l">
+            <img src="../../../assets/pages/register/credentials.png" alt="Credentials" class="wolf-bane-text size-m">
             <section>
-              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="text" placeholder="username" [attr.maxlength]="maximumUsernameLength" [(ngModel)]="userRegister.username" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><br>
-              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="email" placeholder="email address" [attr.maxlength]="maximumEmailLength" [(ngModel)]="userRegister.email" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><br>
-              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="password" placeholder="password" [attr.maxlength]="maximumPasswordLength" [(ngModel)]="userRegister.password" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><br>
-              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="password" placeholder="repeat password" [attr.maxlength]="maximumPasswordLength" [(ngModel)]="userRegister.passwordRepeat" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable">
+              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable" (click)="showHint('username')"><input type="text" placeholder="username" [attr.maxlength]="maximumUsernameLength" [(ngModel)]="userRegister.username" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable" (click)="showHint('username')"><br>
+              <input type="email" placeholder="email address" [attr.maxlength]="maximumEmailLength" [(ngModel)]="userRegister.email" class="standard-input"><br>
+              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable" (click)="showHint('password')"><input type="password" placeholder="password" [attr.maxlength]="maximumPasswordLength" [(ngModel)]="userRegister.password" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable" (click)="showHint('password')"><br>
+              <input type="password" placeholder="repeat password" [attr.maxlength]="maximumPasswordLength" [(ngModel)]="userRegister.passwordRepeat" class="standard-input">
             </section>
             <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('pre-rules')">
             <img src="../../../assets/shared/next.png" alt="Next" class="wolf-bane-text size-s clickable" (click)="validateCredentials()">
           </div>
           <div *ngIf="currentSection === 'personal-details'">
-            <img src="../../../assets/pages/register/personal-details.png" alt="Personal details" class="wolf-bane-text size-l">
+            <img src="../../../assets/pages/register/personal-details.png" alt="Personal details" class="wolf-bane-text size-m">
             <section>
-              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="text" placeholder="first name" [attr.maxlength]="maximumFirstNameLength" [(ngModel)]="userRegister.firstName" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><br>
-              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><input type="email" placeholder="last name" [attr.maxlength]="maximumLastNameLength" [(ngModel)]="userRegister.lastName" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable"><br>
+              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable" (click)="showHint('personal')"><input type="text" placeholder="first name" [attr.maxlength]="maximumFirstNameLength" [(ngModel)]="userRegister.firstName" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable" (click)="showHint('personal')"><br>
+              <img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable" (click)="showHint('personal')"><input type="email" placeholder="last name" [attr.maxlength]="maximumLastNameLength" [(ngModel)]="userRegister.lastName" class="standard-input"><img src="../../../assets/pages/register/question-mark.png" alt="?" class="question-mark clickable" (click)="showHint('personal')"><br>
             </section>
             <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('credentials')">
             <img src="../../../assets/shared/next.png" alt="Next" class="wolf-bane-text size-s clickable" (click)="validatePersonalDetails()">
           </div>
           <div *ngIf="currentSection === 'regulations'">
-            <img src="../../../assets/pages/register/regulations.png" alt="Regulations" class="wolf-bane-text size-l">
+            <img src="../../../assets/pages/register/regulations.png" alt="Regulations" class="wolf-bane-text size-m">
             <section>
               By finishing registration process you confirm<br>
               acceptation for all Chess Training Game regulations.
@@ -59,18 +69,25 @@
             <img src="../../../assets/pages/register/finish.png" alt="Finish" class="wolf-bane-text size-s clickable" (click)="signUp()">
           </div>
           <div *ngIf="currentSection === 'registered'">
-            <img src="../../../assets/pages/register/account-created.png" alt="Account created" class="wolf-bane-text size-l" (click)="changeSection('pre-rules')">
+            <img src="../../../assets/pages/register/account-created.png" alt="Account created" class="wolf-bane-text size-m">
             <section>
-              Thank you for registration in Chess Training Game!<br>Please check your Inbox and follow the instructions.
+              <p>
+                Thank you for creating account in Chess Training Game!
+              </p>
+              <p>
+                Registration process is almost done. Last step is confirming email address.<br>
+                Please check your Inbox and follow the instructions.
+              </p>
             </section>
             <a href="/home">
               <img src="../../../assets/shared/home-page.png" alt="Home page" class="wolf-bane-text size-s clickable">
             </a>
           </div>
           <div *ngIf="currentSection === 'error'">
-            <img src="../../../assets/shared/houston-we-have-a-problem.png" alt="Houston, we have a problem" class="wolf-bane-text size-l">
+            <img src="../../../assets/shared/houston-we-have-a-problem.png" alt="Houston, we have a problem" class="wolf-bane-text size-m">
             <section class="error">
-              {{registerError}}
+              {{registerError}}<br><br>
+              <img src="../../../assets/pages/register/queen-icon.png" alt="Queen icon" class="queen-icon">
             </section>
           </div>
         </article>

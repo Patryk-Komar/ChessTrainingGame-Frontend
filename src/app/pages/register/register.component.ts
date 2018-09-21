@@ -40,6 +40,16 @@ export class RegisterPage implements OnInit {
     }, 500);
   }
 
+  showHint(option: string): void {
+    if (option === "username") {
+      alert("Username must contain 3-16 characters and start with a letter.");
+    } else if (option === "password") {
+      alert("Password must contain 8-20 characters, at least one letter and one digit.");
+    } else if (option === "personal") {
+      alert("Personal details are used for password reset process.");
+    }
+  }
+
   validateCredentials(): void {
     if (!this.userRegister.validateUsername()) {
       this.showError("Please enter the correct username.", "credentials");
