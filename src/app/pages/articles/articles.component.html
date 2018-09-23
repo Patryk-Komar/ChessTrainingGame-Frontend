@@ -32,33 +32,43 @@
         </section>
       </div>
       <div class="row" *ngIf="currentSection === 'legendary-players' || currentSection === 'memorable-games' || currentSection === 'historical-curiosities'">
-        <ng-container *ngFor="let article of articlesManager.articles">
-          <article *ngIf="(currentSection === 'legendary-players' && article.getCategory() === 'player') || (currentSection === 'memorable-games' && article.getCategory() === 'game') || (currentSection === 'historical-curiosities' && article.getCategory() === 'curiosity')" class="col-sm-6 col-md-3 col-lg-2 margin-auto clickable" (click)="showArticle(article.getTitle())">
-            <span class="article-image">
-              <img src="../../../assets/pages/articles/miniatures/{{article.getTitle().replace(' ', '-').toLowerCase()}}.jpg" alt="{{article.getTitle()}}">
-            </span><br>
-            <span class="article-title">
-              {{article.getTitle()}}
-            </span>
-          </article>
-        </ng-container>
-        <div class="col-sm-12 margin-auto">
+        <header class="col-sm-12 margin-auto" style="margin-bottom: 30px;">
+          <img *ngIf="currentSection === 'legendary-players'" src="../../../assets/pages/articles/legendary-players.png" alt="Legendary players" class="wolf-bane-text size-m">
+          <img *ngIf="currentSection === 'memorable-games'" src="../../../assets/pages/articles/memorable-games.png" alt="Memorable games" class="wolf-bane-text size-m">
+          <img *ngIf="currentSection === 'historical-curiosities'" src="../../../assets/pages/articles/historical-curiosities.png" alt="Historical curiosities" class="wolf-bane-text size-m">
+        </header>
+        <div class="row col-sm-12 col-md-10 col-lg-6 margin-auto">
+          <ng-container *ngFor="let article of articlesManager.articles">
+            <article *ngIf="(currentSection === 'legendary-players' && article.getCategory() === 'player') || (currentSection === 'memorable-games' && article.getCategory() === 'game') || (currentSection === 'historical-curiosities' && article.getCategory() === 'curiosity')" class="article-miniature col-sm-12 col-md-6 col-lg-4 margin-auto">
+              <span class="article-image clickable" (click)="showArticle(article.getTitle())">
+                <img *ngIf="currentSection === 'legendary-players'" src="../../../assets/pages/articles/miniatures/players/{{article.getTitle()}}.jpg" alt="{{article.getTitle()}}">
+                <img *ngIf="currentSection === 'memorable-games'" src="../../../assets/pages/articles/miniatures/games/{{article.getTitle()}}.jpg" alt="{{article.getTitle()}}">
+                <img *ngIf="currentSection === 'historical-curiosities'" src="../../../assets/pages/articles/miniatures/curiosities/{{article.getTitle()}}.jpg" alt="{{article.getTitle()}}">
+              </span><br>
+              <span class="article-title clickable" (click)="showArticle(article.getTitle())">
+                {{article.getTitle()}}
+              </span>
+            </article>
+          </ng-container>
+        </div>
+        <div class="back-button col-sm-12 margin-auto">
           <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('articles-type-selection')">
         </div>
       </div>
       <div class="row" *ngIf="currentSection === 'article'">
-        <article class="article-content col-sm-12 col-md-10 col-lg-8 margin-auto">
+        <article class="full-article col-sm-12 col-md-10 col-lg-8 margin-auto">
           <span class="article-details-image">
-            <img src="../../../assets/pages/articles/miniatures/{{selectedArticle.getTitle().replace(' ', '-').toLowerCase()}}.jpg" alt="selectedArticle.getTitle()">
+            <img *ngIf="selectedArticle.getCategory() === 'player'" src="../../../assets/pages/articles/miniatures/players/{{selectedArticle.getTitle()}}.jpg" alt="{{selectedArticle.getTitle()}}">
+            <img *ngIf="selectedArticle.getCategory() === 'game'" src="../../../assets/pages/articles/miniatures/games/{{selectedArticle.getTitle()}}.jpg" alt="{{selectedArticle.getTitle()}}">
+            <img *ngIf="selectedArticle.getCategory() === 'curiosity'" src="../../../assets/pages/articles/miniatures/curiosities/{{selectedArticle.getTitle()}}.jpg" alt="{{selectedArticle.getTitle()}}">
           </span><br>
           <span class="article-details-title">
             {{selectedArticle.getTitle()}}
           </span><br>
-          <p *ngFor="let paragraph of parsedArticle">
-            {{paragraph}}
-          </p>
+          <article class="article-content">
+          </article>
         </article>
-        <div class="col-sm-12 margin-auto">
+        <div class="article-back-button col-sm-12 margin-auto">
           <img *ngIf="selectedArticle.getCategory() === 'player'" src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('legendary-players')">
           <img *ngIf="selectedArticle.getCategory() === 'game'" src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('memorable-games')">
           <img *ngIf="selectedArticle.getCategory() === 'curiosity'" src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-s clickable" (click)="changeSection('historical-curiosities')">

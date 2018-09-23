@@ -16,8 +16,6 @@ export class ArticlesPage implements OnInit {
   private articlesManager: ArticlesManager;
   private selectedArticle: Article;
 
-  private parsedArticle: Array <string>;
-
   constructor() {
     this.currentSection = "articles-type-selection";
     this.articlesManager = ArticlesManager.getInstance();
@@ -30,18 +28,22 @@ export class ArticlesPage implements OnInit {
     $("main").fadeOut(500);
     setTimeout(() => {
       this.currentSection = newSection;
+      if (newSection === "article") {
+        setTimeout(() => {
+          $("article.article-content").fadeOut(1);
+          $("div.article-back-button").fadeOut(1);
+          $("article.article-content").html(this.selectedArticle.getContent().replace(/<p>/g, "<p style='text-indent: 50px;'>"));
+          $("article.article-content").fadeIn(100);
+          $("div.article-back-button").fadeIn(100);
+        }, 100);
+      }
       $("main").fadeIn(500);
     }, 500);
   }
 
   showArticle(articleTitle: string): void {
     this.selectedArticle = this.articlesManager.getArticleByTitle(articleTitle);
-    this.parseArticle();
     this.changeSection("article");
-  }
-
-  parseArticle(): void {
-    this.parsedArticle = this.selectedArticle.getContent().split("|");
   }
 
 }
