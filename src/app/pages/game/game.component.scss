@@ -16,15 +16,10 @@ div.wrapper {
                 }
             }
             div.puzzle-selection, div.mode-selection {
-                justify-content: center;
                 header.mode-selection-header {
-                    margin-top: 40px;
                     margin-bottom: 20px;
                 }
                 article {
-                    &.back-button {
-                        margin-top: 30px;
-                    }
                     span.hover-all {
                         img {
                             &.piece {
@@ -44,6 +39,14 @@ div.wrapper {
                         }
                     }
                 }
+                img.game-mode-order {
+                    opacity: 0.25;
+                    transition: all 0.5s ease-in-out;
+                    width: 80px;
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
             }
             div.chessboard {
                 border: 3px solid #4da9ff;
@@ -51,8 +54,24 @@ div.wrapper {
                 div.chessboard-field {
                     float: left;
                     height: 65px;
-                    transition: all 0.2s ease-in-out;
+                    transition: all 0.25s ease-in-out;
                     width: 65px;
+                    @media only screen and (max-width: 1600px), screen and (max-height: 900px) {
+                        height: 65px;
+                        width: 65px;
+                    }
+                    @media only screen and (max-width: 1280px), screen and (max-height: 720px) {
+                        height: 55px;
+                        width: 55px;
+                    }
+                    @media only screen and (max-width: 1024px), screen and (max-height: 576px) {
+                        height: 45px;
+                        width: 45px;
+                    }
+                    @media only screen and (max-width: 768px), screen and (max-height: 432px) {
+                        height: 35px;
+                        width: 35px;
+                    }
                     &.white {
                         background-color: $white;
                         &.clicked {
@@ -85,6 +104,18 @@ div.wrapper {
             font-size: 18px;
             font-weight: bold;
         }
+        span.profile-image-span {
+            border: 3px solid $white;
+            border-radius: 50%;
+            display: inline-block;
+            height: 180px;
+            overflow: hidden;
+            width: 180px;
+            img.profile-image {
+                height: 100%;
+                width: 100%;
+            }
+        }
         span.link {
             color: #2266cc;
             font-size: 14px;
@@ -94,6 +125,15 @@ div.wrapper {
             &:hover {
                 color: #5599ff;
                 text-decoration: none;
+            }
+        }
+        span.achievement {
+            display: inline-block;
+            margin: 0 5px;
+            img.achievement-order {
+                height: 40px;
+                margin: 5px;
+                width: 40px;
             }
         }
     }

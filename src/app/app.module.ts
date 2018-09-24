@@ -18,6 +18,7 @@ import { ErrorPage } from './pages/error/error.component';
 import { UserService } from './services/user.service';
 import { GameService } from './services/game.service';
 import { WebsiteService } from './services/website.service';
+import { ProfileService } from './services/profile.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { WebsiteService } from './services/website.service';
   providers: [
     UserService,
     GameService,
-    WebsiteService
+    WebsiteService,
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })

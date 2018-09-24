@@ -3,7 +3,9 @@ import * as $ from 'jquery';
 
 import { GameService } from '../../services/game.service';
 import { UserService } from '../../services/user.service';
+import { ProfileService } from '../../services/profile.service';
 import { Quotation } from "../../utils/quotations";
+import { PlayerScores } from '../../models/player.scores';
 import QuotationManager from "../../managers/quotation.manager";
 import Chessboard from '../../models/game/chessboard';
 import Move from '../../models/game/move';
@@ -47,15 +49,19 @@ export class GamePage implements OnInit {
 
   private puzzleStarted: Date;
   private puzzleFinished: Date;
+
+  private playerScores: PlayerScores;
   
-  constructor(private userService: UserService, private gameService: GameService) {
+  constructor(private userService: UserService, private gameService: GameService, private profileService: ProfileService) {
     this.currentSection = "mode-selection";
     this.gameStarted = false;
-    this.startRankedGame = this.startRankedGame.bind(this);
-    this.startTrainingGame = this.startTrainingGame.bind(this);
+    this.startGame = this.startGame.bind(this);
   }
 
   ngOnInit() {
+    this.showPlayerNickname();
+    this.showPlayerAvatar();
+    this.showPlayerStatistics();
   }
 
   changeSection(newSection: string): void {
@@ -64,6 +70,47 @@ export class GamePage implements OnInit {
       this.currentSection = newSection;
       $("div.main").fadeIn(500);
     }, 500);
+  }
+
+  showPlayerNickname(): void {
+    $("span.username").html(this.userService.getUsername());
+  }
+
+  showPlayerAvatar(): void {
+    this.profileService.getPlayerAvatar()
+    .then(response => {
+      if (response.success) {
+        const {
+          path
+        } = response;
+        $("img.profile-image").attr("src", path);
+        $("span.profile-image-span").css("visibility", "visible");
+      } else {
+        $("img.profile-image").attr("src", "../../../assets/shared/default-avatar.png");
+        $("span.profile-image-span").css("visibility", "visible");
+      }
+    });
+  }
+
+  showPlayerStatistics(): void {
+    this.profileService.getPlayerScores()
+    .then(response => {
+      const {
+        success
+      } = response;
+      if (success) {
+        this.playerScores = new PlayerScores(response);
+      }
+    });
+  }
+
+  startPuzzleSelection(mode: string): void {
+    if (mode === "ranked") {
+      this.rankedGameMode = true;
+    } else {
+      this.rankedGameMode = false;
+    }
+    this.changeSection("puzzle-selection");
   }
 
   chessboardFieldClick(fieldNumber): void {
@@ -99,17 +146,12 @@ export class GamePage implements OnInit {
                 if (this.rankedGameMode) {
                   this.puzzleFinished = new Date();
                   const time = this.puzzleFinished.valueOf() - this.puzzleStarted.valueOf();
-                  this.activateBlockade();
-                  setTimeout(() => {
-                    this.gameService.saveRankedGameResult(selectedGameMode, this[selectedGameMode].getID(), time, this[selectedGameMode].getMistakesCounter(), "vastgastga");
-                    this.startRankedGame(this.selectedGameMode);
-                  }, 500);
-                } else {
-                  this.activateBlockade();
-                  setTimeout(() => {
-                    this.startTrainingGame(this.selectedGameMode);
-                  }, 500);
+                  this.gameService.saveRankedGameResult(selectedGameMode, this[selectedGameMode].getID(), time, this[selectedGameMode].getMistakesCounter(), this.userService.getUsername());
                 }
+                this.activateBlockade();
+                setTimeout(() => {
+                  this.startGame(this.selectedGameMode);
+                }, 500);
               } else {
                 const enemyMove = this[selectedGameMode].getEnemyMove();
                 const enemyMoveFrom = enemyMove.getFrom();
@@ -153,95 +195,30 @@ export class GamePage implements OnInit {
     }, 250);
   }
 
-  startRankedGame(selectedGameMode: string): void {
+  startGame(selectedGameMode: string): void {
     this.selectedGameMode = selectedGameMode;
-    this.rankedGameMode = true;
     this.blockade = false;
     this.firstClick = false;
     this.mistakes = 0;
     if (!this.gameStarted) {
       this.gameStarted = true;
-      $("aside.aside-left").fadeOut(500);
-      $("aside.aside-right").fadeOut(500);
-      setTimeout(() => {
-        $("main").removeClass("col-lg-4").addClass("col-lg-6");
-        $("aside.aside-left").removeClass("col-lg-4").addClass("col-lg-3");
-        $("aside.aside-right").removeClass("col-lg-4").addClass("col-lg-3");
-        $("aside.aside-left").fadeIn(1000);
-        $("aside.aside-right").fadeIn(1000);
-      }, 1000);
     }
-    setTimeout(() => {
-      this.gameService.getRankedGame(selectedGameMode, this.userService.getUsername())
-      .then(response => {
-        if (response.success) {
-          this.showQuotation("game");
-          const {
-            id,
-            color,
-            fields,
-            solutions
-          } = response.result;
-          const GameModeClass = gameModesMapping[selectedGameMode];
-          this[selectedGameMode] = new GameModeClass(id, fields.split(","), color, solutions);
-          this.chessboard = this[selectedGameMode].getChessboard();
-          this.puzzleStarted = new Date();
-        } else {
-          const {
-            message
-          } = response;
-          this.error = message ? message : "Unknown error occurred. Please try again."
-          this.showError("puzzle-selection");
-        }
-      });
-    }, 500);
-  }
-
-  startTrainingGame(selectedGameMode: string): void {
-    this.selectedGameMode = selectedGameMode;
-    this.rankedGameMode = false;
-    this.blockade = false;
-    this.firstClick = false;
-    this.mistakes = 0;
-    if (!this.gameStarted) {
-      this.gameStarted = true;
-      $("aside.aside-left").fadeOut(500);
-      $("aside.aside-right").fadeOut(500);
+    if (this.rankedGameMode) {
       setTimeout(() => {
-        $("main").removeClass("col-lg-4").addClass("col-lg-6");
-        $("aside.aside-left").removeClass("col-lg-4").addClass("col-lg-3");
-        $("aside.aside-right").removeClass("col-lg-4").addClass("col-lg-3");
-        $("aside.aside-left").fadeIn(1000);
-        $("aside.aside-right").fadeIn(1000);
-      }, 1000);
-    }
-    if (selectedGameMode === "random") {
-      setTimeout(() => {
-        this.gameService.getRandomGame()
+        this.gameService.getRankedGame(selectedGameMode, this.userService.getUsername())
         .then(response => {
           if (response.success) {
             this.showQuotation("game");
-            const {
-              gameModeName,
-              result
-            } = response;
             const {
               id,
               color,
               fields,
               solutions
-            } = result;
-            this.selectedGameMode = gameModeName;
-            const GameModeClass = gameModesMapping[gameModeName];
-            if (gameModeName !== "twoMovesCheckmate" && gameModeName !== "threeMovesCheckmate") {
-              this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions);
-            } else {
-              const enemyMoves = result["enemy-moves"];
-              this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions, enemyMoves)
-            }
-            setTimeout(() => {
-              this.chessboard = this[gameModeName].getChessboard();
-            }, 500);
+            } = response.result;
+            const GameModeClass = gameModesMapping[selectedGameMode];
+            this[selectedGameMode] = new GameModeClass(id, fields.split(","), color, solutions);
+            this.chessboard = this[selectedGameMode].getChessboard();
+            this.puzzleStarted = new Date();
           } else {
             const {
               message
@@ -252,41 +229,79 @@ export class GamePage implements OnInit {
         });
       }, 500);
     } else {
-      setTimeout(() => {
-        this.gameService.getTrainingGame(this.selectedGameMode)
-        .then(response => {
-          if (response.success) {
-            this.showQuotation("game");
-            const {
-              gameModeName,
-              result
-            } = response;
-            const {
-              id,
-              color,
-              fields,
-              solutions
-            } = result;
-            this.selectedGameMode = gameModeName;
-            const GameModeClass = gameModesMapping[gameModeName];
-            if (gameModeName !== "twoMovesCheckmate" && gameModeName !== "threeMovesCheckmate") {
-              this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions);
+      if (selectedGameMode === "random") {
+        setTimeout(() => {
+          this.gameService.getRandomGame()
+          .then(response => {
+            if (response.success) {
+              this.showQuotation("game");
+              const {
+                gameModeName,
+                result
+              } = response;
+              const {
+                id,
+                color,
+                fields,
+                solutions
+              } = result;
+              this.selectedGameMode = gameModeName;
+              const GameModeClass = gameModesMapping[gameModeName];
+              if (gameModeName !== "twoMovesCheckmate" && gameModeName !== "threeMovesCheckmate") {
+                this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions);
+              } else {
+                const enemyMoves = result["enemy-moves"];
+                this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions, enemyMoves)
+              }
+              setTimeout(() => {
+                this.chessboard = this[gameModeName].getChessboard();
+              }, 500);
             } else {
-              const enemyMoves = result["enemy-moves"];
-              this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions, enemyMoves)
+              const {
+                message
+              } = response;
+              this.error = message ? message : "Unknown error occurred. Please try again."
+              this.showError("puzzle-selection");
             }
-            setTimeout(() => {
-              this.chessboard = this[gameModeName].getChessboard();
-            }, 500);
-          } else {
-            const {
-              message
-            } = response;
-            this.error = message ? message : "Unknown error occurred. Please try again."
-            this.showError("puzzle-selection");
-          }
-        });
-      }, 500);
+          });
+        }, 500);
+      } else {
+        setTimeout(() => {
+          this.gameService.getTrainingGame(this.selectedGameMode)
+          .then(response => {
+            if (response.success) {
+              this.showQuotation("game");
+              const {
+                gameModeName,
+                result
+              } = response;
+              const {
+                id,
+                color,
+                fields,
+                solutions
+              } = result;
+              this.selectedGameMode = gameModeName;
+              const GameModeClass = gameModesMapping[gameModeName];
+              if (gameModeName !== "twoMovesCheckmate" && gameModeName !== "threeMovesCheckmate") {
+                this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions);
+              } else {
+                const enemyMoves = result["enemy-moves"];
+                this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions, enemyMoves)
+              }
+              setTimeout(() => {
+                this.chessboard = this[gameModeName].getChessboard();
+              }, 500);
+            } else {
+              const {
+                message
+              } = response;
+              this.error = message ? message : "Unknown error occurred. Please try again."
+              this.showError("puzzle-selection");
+            }
+          });
+        }, 500);
+      }
     }
   }
 
@@ -299,6 +314,14 @@ export class GamePage implements OnInit {
         this.puzzleStarted = new Date();
       }, 500);
     }, 5000);
+  }
+
+  cancelGame(): void {
+    if (this.rankedGameMode) {
+      this.changeSection("puzzle-selection-ranked");
+    } else {
+      this.changeSection("puzzle-selection-training");
+    }
   }
 
   showError(returnSection: string): void {
