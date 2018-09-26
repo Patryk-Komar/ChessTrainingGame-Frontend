@@ -1,6 +1,6 @@
 {
   "name": "chess-training-game",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Chess Training Game front-end using Angular with TypeScript",
   "repository": {
     "type": "git",
