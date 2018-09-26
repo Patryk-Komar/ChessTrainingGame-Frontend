@@ -14,6 +14,7 @@ import { GamePage } from './pages/game/game.component';
 import { PresentationPage } from './pages/presentation/presentation.component';
 import { ArticlesPage } from './pages/articles/articles.component';
 import { ErrorPage } from './pages/error/error.component';
+import { AccountPage } from './pages/account/account.component';
 
 import { UserService } from './services/user.service';
 import { GameService } from './services/game.service';
@@ -30,7 +31,8 @@ import { ProfileService } from './services/profile.service';
     GamePage,
     PresentationPage,
     ArticlesPage,
-    ErrorPage
+    ErrorPage,
+    AccountPage
   ],
   imports: [
     BrowserModule,

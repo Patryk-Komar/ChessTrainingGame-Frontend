@@ -1,0 +1,53 @@
+<div class="wrapper fullscreen">
+  <div class="container-fluid">
+    <div class="row">
+      <header class="col-sm-8 col-md-6 col-lg-4 margin-auto standard-header">
+        <a href="/home">
+          <logo>
+          </logo>
+        </a>
+      </header>
+      <main class="row col-sm-12">
+        <article class="quote col-sm-12">
+          <q>
+            Chess doesn’t drive people mad, it keeps mad people sane.
+          </q>
+          <span class="author">
+            ~ Bill Hartston
+          </span>
+        </article>
+        <div class="col-sm-12 col-lg-2">
+        </div>
+        <article class="avatar-change col-sm-12 col-md-6 col-lg-4 margin-auto">
+          <header>
+            <img src="../../../assets/pages/account/customize-avatar.png" alt="Customize avatar" class="wolf-bane-text size-m">
+          </header>
+          <span class="profile-image-span">
+            <img src="" alt="Player avatar" class="profile-image">
+          </span><br>
+          <input id="fileUpload" name="fileUpload" type="file" (change)="onFileSelection($event)" placeholder="Select a file..." multiple/><br>
+          <button class="clickable" (click)="uploadFile()">
+            Upload
+          </button>
+        </article>
+        <article class="password-change col-sm-12 col-md-6 col-lg-4 margin-auto">
+          <header>
+            <img src="../../../assets/pages/account/change-password.png" alt="Change password" class="wolf-bane-text size-m">
+          </header>
+          <input type="email" [(ngModel)]="email" placeholder="email"><br>
+          <input type="password" [(ngModel)]="oldPassword" placeholder="old password"><br>
+          <input type="password" [(ngModel)]="newPassword" placeholder="new password"><br>
+          <button class="clickable" (click)="changePassword()">
+            Submit
+          </button>
+        </article>
+        <div class="col-sm-12 col-lg-2">
+        </div>
+      </main>
+      <footer class="col-sm-12 margin-auto standard-footer">
+        Copyright © Chess Training Game, 2018<br>
+        All right reserved
+      </footer>
+    </div>
+  </div>	
+</div>

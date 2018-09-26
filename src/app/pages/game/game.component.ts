@@ -9,6 +9,7 @@ import { PlayerScores } from '../../models/player.scores';
 import QuotationManager from "../../managers/quotation.manager";
 import Chessboard from '../../models/game/chessboard';
 import Move from '../../models/game/move';
+import GameMode from '../../models/game/game-modes/game.mode';
 import OneMoveCheckmate from '../../models/game/game-modes/one.move.checkmate';
 import TwoMovesCheckmate from '../../models/game/game-modes/two.moves.checkmate';
 import ThreeMovesCheckmate from '../../models/game/game-modes/three.moves.checkmate';
@@ -44,6 +45,7 @@ export class GamePage implements OnInit {
   private threeMovesCheckmate: ThreeMovesCheckmate;
   private stalemate: Stalemate;
   private doubleAttack: DoubleAttack;
+  private random: GameMode;
 
   private mistakes: number;
 
@@ -84,10 +86,8 @@ export class GamePage implements OnInit {
           path
         } = response;
         $("img.profile-image").attr("src", path);
-        $("span.profile-image-span").css("visibility", "visible");
       } else {
         $("img.profile-image").attr("src", "../../../assets/shared/default-avatar.png");
-        $("span.profile-image-span").css("visibility", "visible");
       }
     });
   }
@@ -100,6 +100,16 @@ export class GamePage implements OnInit {
       } = response;
       if (success) {
         this.playerScores = new PlayerScores(response);
+        const {
+          oneMoveCheckmate,
+          twoMovesCheckmate
+        } = response.scores;
+        if (oneMoveCheckmate.completed < 50) {
+          $("span#mate-in-two-selection").addClass("blocked");
+        }
+        if (twoMovesCheckmate.completed < 25) {
+          $("span#mate-in-three-selection").addClass("blocked");
+        }
       }
     });
   }
@@ -245,16 +255,15 @@ export class GamePage implements OnInit {
                 fields,
                 solutions
               } = result;
-              this.selectedGameMode = gameModeName;
               const GameModeClass = gameModesMapping[gameModeName];
               if (gameModeName !== "twoMovesCheckmate" && gameModeName !== "threeMovesCheckmate") {
-                this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions);
+                this[this.selectedGameMode] = new GameModeClass(id, fields.split(","), color, solutions);
               } else {
                 const enemyMoves = result["enemy-moves"];
-                this[gameModeName] = new GameModeClass(id, fields.split(","), color, solutions, enemyMoves)
+                this[this.selectedGameMode] = new GameModeClass(id, fields.split(","), color, solutions, enemyMoves)
               }
               setTimeout(() => {
-                this.chessboard = this[gameModeName].getChessboard();
+                this.chessboard = this[this.selectedGameMode].getChessboard();
               }, 500);
             } else {
               const {

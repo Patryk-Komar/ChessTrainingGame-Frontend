@@ -16,35 +16,37 @@ div.wrapper {
                 }
             }
             div.puzzle-selection, div.mode-selection {
+                justify-content: center;
                 header.mode-selection-header {
                     margin-bottom: 20px;
                 }
                 article {
                     span.hover-all {
-                        img {
-                            &.piece {
-                                filter: brightness(150%);
-                                margin: -10px 20px 0;
-                                max-height: 200px;
-                                transition: all 0.25s ease-in-out;
-                            }
-                        }
-                        &:hover {
-                            img {
-                                opacity: 1;
-                                &.piece {
-                                    filter: brightness(400%);
+                        &.unlocked {
+                            &:hover {
+                                img {
+                                    opacity: 1;
+                                    &.piece {
+                                        filter: brightness(400%);
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-                img.game-mode-order {
-                    opacity: 0.25;
-                    transition: all 0.5s ease-in-out;
-                    width: 80px;
-                    &:hover {
-                        opacity: 1;
+                        &.blocked {
+                            cursor: not-allowed;
+                            opacity: 0.25;
+                        }
+                        img.piece {
+                            filter: brightness(150%);
+                            margin: -10px 20px 0;
+                            max-height: 200px;
+                            transition: all 0.5s ease-in-out;
+                        }
+                        img.game-mode-order {
+                            opacity: 0.25;
+                            transition: all 0.5s ease-in-out;
+                            width: 80px;
+                        }
                     }
                 }
             }
@@ -99,7 +101,12 @@ div.wrapper {
     }
     aside {
         margin: 0;
+        padding: 20px;
         text-align: center;
+        p {
+            font-size: 14px;
+            padding: 5px 10px;
+        }
         span.username {
             font-size: 18px;
             font-weight: bold;

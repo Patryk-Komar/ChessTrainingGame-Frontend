@@ -1,0 +1,59 @@
+@import "../../../styles";
+
+div.wrapper {
+    background-image: url("../../../assets/pages/account/account-page-background.jpg");
+    main {
+        article {
+            &.avatar-change {
+                span.profile-image-span {
+                    border: 3px solid $white;
+                    border-radius: 50%;
+                    display: inline-block;
+                    height: 180px;
+                    margin-bottom: 20px;
+                    overflow: hidden;
+                    width: 180px;
+                    img.profile-image {
+                        height: 100%;
+                        width: 100%;
+                    }
+                }
+                button {
+                    background: $transparent;
+                    border: 2px solid $white;
+                    border-radius: 20px;
+                    color: $white;
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin-top: 20px;
+                    padding: 8px 15px;
+                }
+            }
+            &.password-change {
+                input {
+                    background: transparent;
+                    border: 2px solid $white;
+                    border-radius: 20px;
+                    color: #888;
+                    margin: 5px;
+                    padding: 5px 10px;
+                    text-align: center;
+                    width: 200px;
+                }
+                button {
+                    background: $transparent;
+                    border: 2px solid $white;
+                    border-radius: 20px;
+                    color: $white;
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin-top: 20px;
+                    padding: 8px 15px;
+                }
+            }
+            header {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

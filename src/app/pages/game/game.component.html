@@ -11,11 +11,25 @@
     <div class="row">
       <aside class="aside-left col-sm-12 col-lg-3 margin-auto">
         <img src="../../../assets/pages/game/whats-ranked-game.png" alt="What's ranked game?" class="wolf-bane-text size-s"><br>
-
-
+        <p>
+          When playing ranked mode, every single mistake matters.
+        </p>
+        <p>
+          Your task is to find correct puzzle solution in the shortest possible time. Wrong moves result in loss of points and lower position in the rankings.
+        </p>
+        <p>
+          In ranked mode each puzzle can be played only once.
+        </p>
         <img src="../../../assets/pages/game/whats-training-game.png" alt="What's training game?"  class="wolf-bane-text size-s"><br>
-
-          
+        <p>
+          As opposed to ranked games, while training you can think two, or even three, times before making a move.
+        </p>
+        <p>
+          Mistakes are not punished, they do not affect your position in the rankings. It's possible to choose specific or random levels type.
+        </p>
+        <p>
+          Puzzles pool are the same as in the ranked mode, each of them can be played more than once.
+        </p>
       </aside>
       <main class="col-sm-12 col-lg-6 margin-auto">
         <div class="main">
@@ -31,17 +45,17 @@
           </div>
           <div *ngIf="currentSection === 'mode-selection'" class="mode-selection">
             <header class="mode-selection-header flex-row">
-              <img src="../../../assets/pages/game/select-game-mode.png" alt="Select game mode" class="wolf-bane-text size-l">
+              <img src="../../../assets/pages/game/select-game-mode.png" alt="Select game mode" class="wolf-bane-text size-m">
             </header>
             <article class="flex-row">
               <div>
-                <span class="hover-all clickable" (click)="startPuzzleSelection('ranked')">
+                <span class="hover-all clickable unlocked" (click)="startPuzzleSelection('ranked')">
                   <img src="../../../assets/pages/game/ranked.png" alt="Ranked" class="wolf-bane-text size-s clickable"><br>
                   <img src="../../../assets/pages/game/ranked-rook.png" alt="Rook" class="piece clickable">
                 </span>
               </div>
               <div>
-                <span class="hover-all clickable" (click)="startPuzzleSelection('training')">
+                <span class="hover-all clickable unlocked" (click)="startPuzzleSelection('training')">
                   <img src="../../../assets/pages/game/training.png" alt="Training" class="wolf-bane-text size-s clickable"><br>
                   <img src="../../../assets/pages/game/training-pawn.png" alt="Pawn" class="piece clickable">
                 </span>
@@ -50,32 +64,40 @@
           </div>
           <div *ngIf="currentSection === 'puzzle-selection'" class="puzzle-selection">
             <header class="mode-selection-header flex-row">
-              <img src="../../../assets/pages/game/select-puzzle-type.png" alt="Select puzzle type" class="wolf-bane-text size-l">
+              <img src="../../../assets/pages/game/select-puzzle-type.png" alt="Select puzzle type" class="wolf-bane-text size-m">
             </header>
             <article class="flex-row">
-              <span class="hover-all clickable" (click)="startGame('oneMoveCheckmate')">
+              <span class="hover-all clickable unlocked" (click)="startGame('oneMoveCheckmate')">
                 <img src="../../../assets/shared/achievements/one-move-checkmate-achievement.png" alt="Mate in 1!" title="Mate in 1!" class="game-mode-order"><br>
                 <img src="../../../assets/pages/game/checkmates-one-move.png" alt="Checkmates by 1 move" class="wolf-bane-text size-s clickable">
               </span>
-              <span class="hover-all clickable" (click)="startGame('twoMovesCheckmate')">
+              <span *ngIf="playerScores.scores.oneMoveCheckmate.completed < 25" class="hover-all clickable blocked">
+                <img src="../../../assets/shared/achievements/two-moves-checkmate-achievement.png" alt="Mate in 2!" title="Mate in 2!" class="game-mode-order"><br>
+                <img src="../../../assets/pages/game/checkmates-two-moves.png" alt="Checkmates by 2 moves" class="wolf-bane-text size-s">
+              </span>
+              <span *ngIf="playerScores.scores.oneMoveCheckmate.completed >= 25" class="hover-all clickable unlocked" (click)="startGame('twoMovesCheckmate')">
                 <img src="../../../assets/shared/achievements/two-moves-checkmate-achievement.png" alt="Mate in 2!" title="Mate in 2!" class="game-mode-order"><br>
                 <img src="../../../assets/pages/game/checkmates-two-moves.png" alt="Checkmates by 2 moves" class="wolf-bane-text size-s clickable">
               </span>
-              <span class="hover-all clickable" (click)="startGame('threeMovesCheckmate')">
+              <span *ngIf="playerScores.scores.twoMovesCheckmate.completed < 25" class="hover-all clickable blocked">
+                <img src="../../../assets/shared/achievements/three-movees-checkmate-achievement.png" alt="Mate in 3!" title="Mate in 3!" class="game-mode-order"><br>
+                <img src="../../../assets/pages/game/checkmates-three-moves.png" alt="Checkmates by 3 moves" class="wolf-bane-text size-s">
+              </span>
+              <span *ngIf="playerScores.scores.twoMovesCheckmate.completed >= 25" class="hover-all clickable unlocked" (click)="startGame('threeMovesCheckmate')">
                 <img src="../../../assets/shared/achievements/three-movees-checkmate-achievement.png" alt="Mate in 3!" title="Mate in 3!" class="game-mode-order"><br>
                 <img src="../../../assets/pages/game/checkmates-three-moves.png" alt="Checkmates by 3 moves" class="wolf-bane-text size-s clickable">
               </span>
             </article>
             <article class="flex-row">
-              <span class="hover-all clickable" (click)="startGame('stalemate')">
+              <span class="hover-all clickable unlocked" (click)="startGame('stalemate')">
                 <img src="../../../assets/shared/achievements/stalemate-achievement.png" alt="Draw!" title="Draw!" class="game-mode-order"><br>
                 <img src="../../../assets/pages/game/stalemates.png" alt="Stalemates" class="wolf-bane-text size-s clickable">
               </span>
-              <span class="hover-all clickable" (click)="startGame('doubleAttack')">
+              <span class="hover-all clickable unlocked" (click)="startGame('doubleAttack')">
                 <img src="../../../assets/shared/achievements/double-attack-achievement.png" alt="Fork!" title="Fork!" class="game-mode-order"><br>
                 <img src="../../../assets/pages/game/double-attacks.png" alt="Double attacks" class="wolf-bane-text size-s clickable">
               </span>
-              <span *ngIf="!rankedGameMode" class="hover-all clickable" (click)="startGame('random')">
+              <span *ngIf="!rankedGameMode" class="hover-all clickable unlocked" (click)="startGame('random')">
                 <img src="../../../assets/shared/achievements/random-game-mode.png" alt="Random!" title="Random!" class="game-mode-order"><br>
                 <img src="../../../assets/pages/game/random.png" alt="Random" class="wolf-bane-text size-s clickable">
               </span>

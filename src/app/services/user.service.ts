@@ -148,4 +148,14 @@ export class UserService {
     });
   }
 
+  public changePassword(email: string, oldPassword: string, newPassword: string) {
+    const requestBody = {
+      email: email,
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    };
+    return axios.post("/api/users/changePassword", requestBody)
+    .then(({ data }: { data: any }) => data);
+  }
+
 }

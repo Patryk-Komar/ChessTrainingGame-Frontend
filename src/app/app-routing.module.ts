@@ -8,6 +8,7 @@ import { GamePage } from './pages/game/game.component';
 import { PresentationPage } from './pages/presentation/presentation.component';
 import { ArticlesPage } from './pages/articles/articles.component';
 import { ErrorPage } from './pages/error/error.component';
+import { AccountPage } from './pages/account/account.component';
 
 import { AuthorizationGuard } from './guards/authorization.guard';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: "presentation", component: PresentationPage },
   { path: "articles", component: ArticlesPage },
   { path: "error", component: ErrorPage },
+  { path: "account", component: AccountPage, canActivate: [AuthorizationGuard] },
   { path: "**", redirectTo: "error" }
 ];
 
