@@ -1,0 +1,144 @@
+<div class="wrapper fullscreen">
+  <div class="container-fluid">
+    <div class="row">
+      <header class="col-sm-8 col-md-6 col-lg-4 margin-auto standard-header">
+        <a href="/home">
+          <logo>
+          </logo>
+        </a>
+      </header>
+    </div>
+    <article class="quote">
+      <q>
+        In life, as in chess, forethought wins.
+      </q>
+      <span class="author">
+        ~ Charles Buxton
+      </span>
+    </article>
+    <main>
+      <div *ngIf="currentSection === 'guideSelection'">
+        <div class="row">
+          <header class="col-sm-12 margin-auto">
+            <img src="../../../assets/pages/guide/pieces-moves.png" alt="Pieces moves" class="wolf-bane-text size-m">
+          </header>
+          <article class="chess-pieces-article col-sm-12 margin-auto row">
+            <div class="col-lg-3"></div>
+            <span class="chess-piece-span col-sm-2 col-lg-1 clickable" (click)="showGuide('Pawn')">
+              <img src="../../../assets/pages/guide/Pawn.png" alt="Pawn"><br>
+              <span>Pawn</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 col-lg-1 clickable" (click)="showGuide('Rook')">
+              <img src="../../../assets/pages/guide/Rook.png" alt="Rook"><br>
+              <span>Rook</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 col-lg-1 clickable" (click)="showGuide('Knight')">
+              <img src="../../../assets/pages/guide/Knight.png" alt="Knight"><br>
+              <span>Knight</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 col-lg-1 clickable" (click)="showGuide('Bishop')">
+              <img src="../../../assets/pages/guide/Bishop.png" alt="Bishop"><br>
+              <span>Bishop</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 col-lg-1 clickable" (click)="showGuide('Queen')">
+              <img src="../../../assets/pages/guide/Queen.png" alt="Queen"><br>
+              <span>Queen</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 col-lg-1 clickable" (click)="showGuide('King')">
+              <img src="../../../assets/pages/guide/King.png" alt="King"><br>
+              <span>King</span>
+            </span>
+            <div class="col-lg-3"></div>
+          </article>
+        </div>
+        <div class="row">
+          <header class="col-sm-12 margin-auto">
+            <img src="../../../assets/pages/guide/situation-maneuvers.png" alt="Situation maneuvers" class="wolf-bane-text size-m">
+          </header>
+          <article class="situation-maneuvers-article col-sm-12 margin-auto row">
+            <span class="chess-piece-span col-sm-3 clickable" (click)="showGuide('Castling')">
+              <img src="../../../assets/pages/guide/Castling.png" alt="Castling"><br>
+              <span>Castling</span>
+            </span>
+            <span class="chess-piece-span col-sm-3 clickable" (click)="showGuide('Pawn promotion')">
+              <img src="../../../assets/pages/guide/Pawn promotion.png" alt="Pawn promotion"><br>
+              <span>Pawn promotion</span>
+            </span>
+            <span class="chess-piece-span col-sm-3 clickable" (click)="showGuide('En passant')">
+              <img src="../../../assets/pages/guide/En passant.png" alt="En passant"><br>
+              <span>En passant</span>
+            </span>
+          </article>
+        </div>
+        <div class="row">
+          <header class="col-sm-12 margin-auto">
+            <img src="../../../assets/pages/guide/classical-openings.png" alt="Classical opening" class="wolf-bane-text size-m">
+          </header>
+          <article class="classical-opening-article col-sm-12 margin-auto row">
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('Sicilian Defense')">
+              <img src="../../../assets/pages/guide/Sicilian Defense.png" alt="Sicilian Defense"><br>
+              <span>Sicilian Defense</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('Italian Game')">
+              <img src="../../../assets/pages/guide/Italian Game.png" alt="Italian Game"><br>
+              <span>Italian Game</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('Ruy Lopez')">
+              <img src="../../../assets/pages/guide/Ruy Lopez.png" alt="Ruy Lopez"><br>
+              <span>Ruy Lopez</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('Queen\'s Gambit')">
+              <img src="../../../assets/pages/guide/Queen's gambit.png" alt="Queen's Gambit"><br>
+              <span>Queen's Gambit</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('Reti Opening')">
+              <img src="../../../assets/pages/guide/Reti Opening.png" alt="Reti Opening"><br>
+              <span>Reti Opening</span>
+            </span>
+          </article>
+        </div>
+        <div class="row">
+          <header class="col-sm-12 margin-auto">
+            <img src="../../../assets/pages/guide/endgame-tips.png" alt="Endgame tips" class="wolf-bane-text size-m">
+          </header>
+          <article class="endgame-tips-article col-sm-12 margin-auto row">
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('Building the bridge')">
+              <img src="../../../assets/pages/guide/Building the bridge.png" alt="Building the bridge"><br>
+              <span>Building the bridge</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('King and pawn')">
+              <img src="../../../assets/pages/guide/King and pawn.png" alt="King and pawn"><br>
+              <span>King and pawn</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('Queen vs rook')">
+              <img src="../../../assets/pages/guide/Queen vs rook.png" alt="Queen vs rook"><br>
+              <span>Queen vs rook</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('Knight and bishop')">
+              <img src="../../../assets/pages/guide/Knight and bishop.png" alt="Knight and bishop"><br>
+              <span>Knight and bishop</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('The power of opposition')">
+              <img src="../../../assets/pages/guide/The power of opposition.png" alt="The power of opposition"><br>
+              <span>The power of opposition</span>
+            </span>
+            <span class="chess-piece-span col-sm-2 clickable" (click)="showGuide('Playing bishops')">
+              <img src="../../../assets/pages/guide/Playing bishops.png" alt="Playing bishops"><br>
+              <span>Playing bishops</span>
+            </span>
+          </article>
+        </div>
+      </div>
+      <div *ngIf="currentSection === 'guideContent'">
+        <div class="row">
+          <header class="guide-title col-sm-12 margin-auto">
+            <img src="../../../assets/pages/guide/{{selectedGuide.getTitle()}}.png" alt="{{selectedGuide.getTitle()}}">
+          </header>
+        </div>
+        <div>
+          <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-xs clickable" (click)="changeSection('guideSelection')">
+        </div>
+      </div>
+    </main>
+  </div>	
+</div>

@@ -157,6 +157,7 @@ export class GamePage implements OnInit {
                   this.puzzleFinished = new Date();
                   const time = this.puzzleFinished.valueOf() - this.puzzleStarted.valueOf();
                   this.gameService.saveRankedGameResult(selectedGameMode, this[selectedGameMode].getID(), time, this[selectedGameMode].getMistakesCounter(), this.userService.getUsername());
+                  this.playerScores.incrementScore(selectedGameMode);
                 }
                 this.activateBlockade();
                 setTimeout(() => {
@@ -327,9 +328,9 @@ export class GamePage implements OnInit {
 
   cancelGame(): void {
     if (this.rankedGameMode) {
-      this.changeSection("puzzle-selection-ranked");
+      this.changeSection("puzzle-selection");
     } else {
-      this.changeSection("puzzle-selection-training");
+      this.changeSection("puzzle-selection");
     }
   }
 

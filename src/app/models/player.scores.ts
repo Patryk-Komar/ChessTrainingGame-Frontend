@@ -45,4 +45,11 @@ export class PlayerScores {
         }
     }
 
+    public incrementScore(gameMode: string): void {
+        this.scores[gameMode].completed++;
+        if (this.scores[gameMode].completed === this.scores[gameMode].completed) {
+            this.achievements[gameMode] = true;
+        }
+    }
+
 }

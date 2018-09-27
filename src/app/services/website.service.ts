@@ -14,7 +14,12 @@ export class WebsiteService {
   }
 
   getAllThematicArticles() {
-    return axios.get(`api/articles/all`)
+    return axios.get("api/articles/all")
+    .then(({ data }: { data: any }) => data);
+  }
+
+  getAllGuides() {
+    return axios.get("api/guides/all")
     .then(({ data }: { data: any }) => data);
   }
 

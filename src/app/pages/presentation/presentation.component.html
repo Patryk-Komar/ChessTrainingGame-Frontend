@@ -58,34 +58,34 @@
           <header class="col-sm-12 margin-auto">
             <img src="../../../assets/pages/presentation/our-project-in-numbers.png" alt="Our project in numbers" class="wolf-bane-text size-m">
           </header>
-          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+          <section class="col-md-2 margin-auto">
           </section>
-          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+          <section class="col-sm-6 col-md-2 margin-auto">
+            <span class="number">{{activePlayers}}</span><br>
+            <img src="../../../assets/pages/presentation/active-players.png" alt="Active players" class="wolf-bane-text size-m">
+          </section>
+          <section class="col-sm-6 col-md-2 margin-auto">
             <span class="number">{{chessPuzzles}}</span><br>
             <img src="../../../assets/pages/presentation/chess-puzzles.png" alt="Chess puzzles" class="wolf-bane-text size-m">
           </section>
-          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+          <section class="col-sm-6 col-md-2 margin-auto">
             <span class="number">{{strategyGuides}}</span><br>
             <img src="../../../assets/pages/presentation/strategy-guides.png" alt="Strategy guides" class="wolf-bane-text size-m">
           </section>
-          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+          <section class="col-sm-6 col-md-2 margin-auto">
             <span class="number">{{thematicArticles}}</span><br>
             <img src="../../../assets/pages/presentation/thematic-articles.png" alt="Thematic articles" class="wolf-bane-text size-m">
           </section>
-          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
-            <span class="number">{{forumThreads}}</span><br>
-            <img src="../../../assets/pages/presentation/forum-threads.png" alt="Forum threads" class="wolf-bane-text size-m">
-          </section>
-          <section class="col-sm-8 col-md-4 col-lg-2 margin-auto">
+          <section class="col-md-2 margin-auto">
           </section>
         </div>
       </article>
       <article class="gallery col-sm-12 margin-auto">
         <img src="../../../assets/pages/presentation/gallery.png" alt="Gallery" class="wolf-bane-text size-m"><br>
-          <article class="slideshow col-sm-10 col-md-8 col-lg-6">
+          <article class="slideshow col-sm-10 col-md-8 col-lg-5">
           </article><br>
           <span class="dots">
-            <ng-container *ngFor="let chessMaster of chessMasters; let i = index;">
+            <ng-container *ngFor="let screenshot of screenshots; let i = index;">
               <span *ngIf="i === currentSlide" class="dot active clickable" id="dot{{i}}" (click)="changeSlide(i)"></span>
               <span *ngIf="i !== currentSlide" class="dot clickable" id="dot{{i}}" (click)="changeSlide(i)"></span>
             </ng-container>

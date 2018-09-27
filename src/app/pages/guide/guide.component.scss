@@ -1,0 +1,65 @@
+@import "../../../styles";
+
+div.wrapper {
+    background-image: url("../../../assets/pages/guide/guide-page-background.jpg");
+    main {
+        padding: 20px;
+        div.row {
+            margin-bottom: 50px;
+            &:last-child {
+                margin-bottom: 20px;
+            }
+            article {
+                justify-content: center;
+                span.chess-piece-span {
+                    display: inline-block;
+                    opacity: 0.25;
+                    transition: all 0.5s ease-in-out;
+                    &:hover {
+                        opacity: 1;
+                    }
+                    img {
+                        display: inline-block;
+                    }
+                }
+                &.chess-pieces-article {
+                    span.chess-piece-span {
+                        img {
+                            margin: -10px 0;
+                            max-width: 100%;
+                        }
+                    }
+                }
+                &.situation-maneuvers-article {
+                    span.chess-piece-span {
+                        img {
+                            max-height: 110px;
+                            max-width: 100%;
+                        }
+                    }
+                }
+                &.classical-opening-article {
+                    span.chess-piece-span {
+                        img {
+                            max-height: 140px;
+                            max-width: 100%;
+                        }
+                    }
+                }
+                &.endgame-tips-article {
+                    span.chess-piece-span {
+                        img {
+                            max-height: 90px;
+                            max-width: 100%;
+                        }
+                    }
+                }
+            }
+            header.guide-title {
+                img {
+                    max-height: 200px;
+                }
+            }
+        }
+    }
+}
