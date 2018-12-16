@@ -1,0 +1,18 @@
+@import "../../../styles";
+
+div.wrapper {
+    background-image: url("../../../assets/pages/error/error-page-background.jpg");
+    main {
+        article.ranking {
+            h4 {
+                margin: 20px;
+            }
+        }
+        aside {
+            margin-top: 30px;
+            img {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -16,6 +16,7 @@ import { ArticlesPage } from './pages/articles/articles.component';
 import { ErrorPage } from './pages/error/error.component';
 import { AccountPage } from './pages/account/account.component';
 import { GuidePage } from './pages/guide/guide.component';
+import { RankPage } from './pages/rank/rank.component';
 
 import { UserService } from './services/user.service';
 import { GameService } from './services/game.service';
@@ -34,7 +35,8 @@ import { ProfileService } from './services/profile.service';
     ArticlesPage,
     ErrorPage,
     AccountPage,
-    GuidePage
+    GuidePage,
+    RankPage
   ],
   imports: [
     BrowserModule,

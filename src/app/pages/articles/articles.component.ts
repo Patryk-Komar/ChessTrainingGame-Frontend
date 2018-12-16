@@ -32,7 +32,7 @@ export class ArticlesPage implements OnInit {
         setTimeout(() => {
           $("article.article-content").fadeOut(1);
           $("div.article-back-button").fadeOut(1);
-          $("article.article-content").html(this.selectedArticle.getContent().replace(/<p>/g, "<p style='text-indent: 50px;'>"));
+          $("article.article-content").html(this.selectedArticle.getContent().replace(/<p>/g, "<p style='text-indent: 50px;'>") + "Source: https://en.wikipedia.org");
           $("article.article-content").fadeIn(100);
           $("div.article-back-button").fadeIn(100);
         }, 100);

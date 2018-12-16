@@ -158,4 +158,9 @@ export class UserService {
     .then(({ data }: { data: any }) => data);
   }
 
+  public getPlayersRanking() {
+    return axios.get("/api/users/rank")
+      .then(({ data }: { data: any }) => data);
+  }
+
 }

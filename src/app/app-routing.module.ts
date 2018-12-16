@@ -10,6 +10,7 @@ import { ArticlesPage } from './pages/articles/articles.component';
 import { ErrorPage } from './pages/error/error.component';
 import { AccountPage } from './pages/account/account.component';
 import { GuidePage } from './pages/guide/guide.component';
+import { RankPage } from './pages/rank/rank.component';
 
 import { AuthorizationGuard } from './guards/authorization.guard';
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: "error", component: ErrorPage },
   { path: "account", component: AccountPage, canActivate: [AuthorizationGuard] },
   { path: "guide", component: GuidePage },
+  { path: "rank", component: RankPage },
   { path: "**", redirectTo: "error" }
 ];
 

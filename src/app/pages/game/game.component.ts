@@ -156,13 +156,13 @@ export class GamePage implements OnInit {
                 if (this.rankedGameMode) {
                   this.puzzleFinished = new Date();
                   const time = this.puzzleFinished.valueOf() - this.puzzleStarted.valueOf();
-                  this.gameService.saveRankedGameResult(selectedGameMode, this[selectedGameMode].getID(), time, this[selectedGameMode].getMistakesCounter(), this.userService.getUsername());
+                  this.gameService.saveRankedGameResult(selectedGameMode, this[selectedGameMode].getID(), time, this.calculateMistakesPunishment(), this.userService.getUsername());
                   this.playerScores.incrementScore(selectedGameMode);
                 }
                 this.activateBlockade();
                 setTimeout(() => {
                   this.startGame(this.selectedGameMode);
-                }, 500);
+                }, 100);
               } else {
                 const enemyMove = this[selectedGameMode].getEnemyMove();
                 const enemyMoveFrom = enemyMove.getFrom();
@@ -323,7 +323,7 @@ export class GamePage implements OnInit {
       setTimeout(() => {
         this.puzzleStarted = new Date();
       }, 500);
-    }, 5000);
+    }, 2500);
   }
 
   cancelGame(): void {
@@ -339,6 +339,15 @@ export class GamePage implements OnInit {
     setTimeout(() => {
       this.changeSection(returnSection);
     }, 3000);
+  }
+
+  calculateMistakesPunishment(): number {
+    const { selectedGameMode } = this;
+    let mistakesPunishment = 0;
+    for (let i = 0; i < this[selectedGameMode].getMistakesCounter(); i++) {
+      mistakesPunishment += 2 * (i + 1);
+    }
+    return mistakesPunishment;
   }
 
 }

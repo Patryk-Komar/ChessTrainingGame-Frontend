@@ -97,10 +97,12 @@
                 <img src="../../../assets/shared/achievements/double-attack-achievement.png" alt="Fork!" title="Fork!" class="game-mode-order"><br>
                 <img src="../../../assets/pages/game/double-attacks.png" alt="Double attacks" class="wolf-bane-text size-s clickable">
               </span>
+              <!--
               <span *ngIf="!rankedGameMode" class="hover-all clickable unlocked" (click)="startGame('random')">
                 <img src="../../../assets/shared/achievements/random-game-mode.png" alt="Random!" title="Random!" class="game-mode-order"><br>
                 <img src="../../../assets/pages/game/random.png" alt="Random" class="wolf-bane-text size-s clickable">
               </span>
+              -->
             </article>
             <article class="back-button flex-row">
               <img src="../../../assets/shared/back.png" alt="Back" class="wolf-bane-text size-xs clickable" (click)="changeSection('mode-selection')">
@@ -144,6 +146,7 @@
         </span><br>
         <span class="username"></span><br>
         <a href="/account"><span class="link">manage account</span></a><br>
+        <a href="/rank"><span class="link">players ranking</span></a><br>
         <img src="../../../assets/pages/game/your-scores.png" alt="Your scores" class="wolf-bane-text size-s"><br>
         <span class="achievement">
           <img src="../../../assets/shared/achievements/one-move-checkmate-achievement.png" alt="Mate in 1!" class="achievement-order" title="Mate in 1!"><br>

@@ -1,0 +1,32 @@
+<div class="wrapper fullscreen">
+  <div class="container-fluid">
+    <div class="row">
+      <header class="col-sm-8 col-md-6 col-lg-5 margin-auto standard-header">
+        <a href="/home">
+          <logo>
+          </logo>
+        </a>
+      </header>
+      <main class="col-sm-12">
+        <article class="quote">
+          <q>
+            Chess is the struggle against the error.
+          </q>
+          <span class="author">
+            ~ Johannes Zukertort
+          </span>
+        </article>
+        <article class="ranking col-sm-12">
+          <h4>Chess Training Game ranking:</h4>
+          <div *ngFor="let player of ranking">
+            {{player.username}} - {{player.points}} points ({{player.completed}} completed levels)
+          </div>
+        </article>
+      </main>
+      <footer class="col-sm-12 margin-auto standard-footer">
+        Copyright © Chess Training Game, 2018<br>
+        All right reserved
+      </footer>
+    </div>
+  </div>	
+</div>
